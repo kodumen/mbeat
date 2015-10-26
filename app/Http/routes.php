@@ -14,3 +14,15 @@
 Route::get('/', function () {
     return view('welcome');
 });
+
+// auth.basic uses email for the username field [0]
+Route::group(['middleware' => 'auth.basic'], function () {
+    Route::get('/admin', function () {
+        return '/admin';
+    });
+});
+
+/*
+ * NOTES:
+ * [0] http://laravel.com/docs/5.1/authentication#http-basic-authentication
+ */
