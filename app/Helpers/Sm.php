@@ -11,6 +11,9 @@ class Sm
     const OFFSET = '#OFFSET';
     const BPMS = '#BPMS';
     const NOTES = '#NOTES';
+    const NOTES_EASY = 'Easy';
+    const NOTES_MEDIUM = 'Medium';
+    const NOTES_HARD = 'Hard';
 
     // Song info
     public $title;
@@ -31,7 +34,15 @@ class Sm
     {
         // remove comments
         $file_content = preg_replace("/\/\/[^\n]*\n/", "", $file_content);
+
         $this->parseInfo($file_content);
+
+        $notes_tag_start = strpos($file_content, self::NOTES . ':');
+        $notes_raw = substr($file_content, $notes_tag_start);
+
+        $this->notes_easy = $this->parseNotes($notes_raw, self::NOTES_EASY);
+        $this->notes_medium = $this->parseNotes($notes_raw, self::NOTES_MEDIUM);
+        $this->notes_hard = $this->parseNotes($notes_raw, self::NOTES_HARD);
 
         return $this;
     }
@@ -69,5 +80,34 @@ class Sm
             }
             $token = strtok(';');
         }
+    }
+
+    /**
+     * parseNotes
+     * @param $notes_raw
+     * @param $difficulty
+     * @return array
+     */
+    private function parseNotes($notes_raw, $difficulty)
+    {
+        $notes_raw = strtok($notes_raw, ';');
+
+        while($notes_raw) {
+            if (str_contains($notes_raw, $difficulty)) {
+                $notes_raw = preg_replace("/.*:/", "", $notes_raw); // remove other info
+                $notes_raw = trim(preg_replace("/\s+/", "\n", $notes_raw));
+
+                $notes_array = explode(',', $notes_raw);
+
+                foreach($notes_array as $key => $value) {
+                    $notes_array[$key] = explode("\n", trim($value));
+                }
+
+                return $notes_array;
+            }
+            $notes_raw = strtok(';');
+        }
+
+        return [];
     }
 }
