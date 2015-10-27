@@ -18,6 +18,7 @@ Route::get('/', function () {
 // auth.basic uses email for the username field [0]
 Route::group(['middleware' => 'auth.basic'], function () {
     Route::get('/admin', 'AdminController@index');
+    Route::post('/admin/song/add', 'AdminController@addSong');
 });
 
 /*

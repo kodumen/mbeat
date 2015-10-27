@@ -12,4 +12,13 @@ class AdminController extends Controller
     {
         return view('admin/index');
     }
+
+    public function addSong(Request $request)
+    {
+        $sm_contents = $request->input('sm');
+
+        if (!$sm_contents) {
+            return 'Invalid request';
+        }
+    }
 }
