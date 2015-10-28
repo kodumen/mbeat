@@ -2,7 +2,9 @@
 
 namespace App\Helpers;
 
-class Sm
+use App\Song;
+
+class SongFactory
 {
     const TITLE = '#TITLE';
     const TITLE_TRANSLIT = '#TITLETRANSLIT';
@@ -15,65 +17,51 @@ class Sm
     const NOTES_MEDIUM = 'Medium';
     const NOTES_HARD = 'Hard';
 
-    // Song info
-    public $title;
-    public $title_translit;
-    public $artist;
-    public $credit;
-
-    // Step info
-    public $offset;
-    public $bpms;
-
-    // Notes
-    public $notes_easy;
-    public $notes_medium;
-    public $notes_hard;
-
-    public function parse($file_content)
+    public static function create($file_content)
     {
+        $song = new Song();
+
         // remove comments
         $file_content = preg_replace("/\/\/[^\n]*\n/", "", $file_content);
 
-        $this->parseInfo($file_content);
+        self::parseInfo($file_content, $song);
 
-        $notes_tag_start = strpos($file_content, self::NOTES . ':');
-        $notes_raw = substr($file_content, $notes_tag_start);
+        $notes_raw = substr($file_content, strpos($file_content, self::NOTES . ':'));
 
-        $this->notes_easy = $this->parseNotes($notes_raw, self::NOTES_EASY);
-        $this->notes_medium = $this->parseNotes($notes_raw, self::NOTES_MEDIUM);
-        $this->notes_hard = $this->parseNotes($notes_raw, self::NOTES_HARD);
+        $song->notes_easy = self::parseNotes($notes_raw, self::NOTES_EASY);
+        $song->notes_medium = self::parseNotes($notes_raw, self::NOTES_MEDIUM);
+        $song->notes_hard = self::parseNotes($notes_raw, self::NOTES_HARD);
 
-        return $this;
+        return $song;
     }
 
     /**
      * Parse song and step info.
      * @param $file_content
      */
-    private function parseInfo($file_content)
+    private static function parseInfo($file_content, $song)
     {
         $token = strtok($file_content, ';');    // represents a #TAG:VALUE pair
         while($token) {
             $tag_value_pair = explode(':', $token); // 0 is the tag and 1 is the value
             switch (trim($tag_value_pair[0])) {
                 case self::TITLE:
-                    $this->title = trim($tag_value_pair[1]);
+                    $song->title = trim($tag_value_pair[1]);
                     break;
                 case self::TITLE_TRANSLIT:
-                    $this->title_translit = trim($tag_value_pair[1]);
+                    $song->title_translit = trim($tag_value_pair[1]);
                     break;
                 case self::ARTIST:
-                    $this->artist = trim($tag_value_pair[1]);
+                    $song->artist = trim($tag_value_pair[1]);
                     break;
                 case self::CREDIT:
-                    $this->credit = trim($tag_value_pair[1]);
+                    $song->credit = trim($tag_value_pair[1]);
                     break;
                 case self::OFFSET:
-                    $this->offset = trim($tag_value_pair[1]);
+                    $song->offset = trim($tag_value_pair[1]);
                     break;
                 case self::BPMS:
-                    $this->bpms = trim($tag_value_pair[1]);
+                    $song->bpms = trim($tag_value_pair[1]);
                     break;
                 default:
                     break;
@@ -83,31 +71,36 @@ class Sm
     }
 
     /**
-     * parseNotes
+     * Parse notes and convert into "mbeat-readable" format
+     *
      * @param $notes_raw
      * @param $difficulty
      * @return array
      */
-    private function parseNotes($notes_raw, $difficulty)
+    private static function parseNotes($notes_raw, $difficulty)
     {
-        $notes_raw = strtok($notes_raw, ';');
+        $beats = [];
 
+        // Extract raw notes of chosen difficulty
+        // each difficulty is separated by a semicolon
+        $notes_raw = strtok($notes_raw, ';');
         while($notes_raw) {
             if (str_contains($notes_raw, $difficulty)) {
-                $notes_raw = preg_replace("/.*:/", "", $notes_raw); // remove other info
+                // remove other info and whitespace
+                $notes_raw = preg_replace("/.*:/", "", $notes_raw);
                 $notes_raw = trim(preg_replace("/\s+/", "\n", $notes_raw));
 
-                $notes_array = explode(',', $notes_raw);
+                $beats = explode(',', $notes_raw);
 
-                foreach($notes_array as $key => $value) {
-                    $notes_array[$key] = explode("\n", trim($value));
+                foreach($beats as $key => $value) {
+                    $beats[$key] = explode("\n", trim($value));
                 }
-
-                return $notes_array;
             }
             $notes_raw = strtok(';');
         }
 
-        return [];
+        // TODO: Convert beats to "mbeat-readable" format
+
+        return $beats;
     }
 }

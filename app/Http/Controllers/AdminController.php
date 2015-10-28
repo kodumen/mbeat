@@ -2,10 +2,11 @@
 
 namespace App\Http\Controllers;
 
-use App\Helpers\Sm;
+use App\Helpers\SongFactory;
 use Illuminate\Http\Request;
 use App\Http\Requests;
 use App\Http\Controllers\Controller;
+use Illuminate\Http\Response;
 
 class AdminController extends Controller
 {
@@ -19,12 +20,11 @@ class AdminController extends Controller
         $sm_contents = $request->input('sm');
 
         if (!$sm_contents) {
-            return 'Invalid request';
+            return response('.sm contents not passed.', Response::HTTP_BAD_REQUEST);
         }
 
-        $sm = new Sm();
-        $sm->parse($sm_contents);
+        $song = SongFactory::create($sm_contents);
 
-        dd($sm);
+        dd($song);
     }
 }
