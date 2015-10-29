@@ -26,11 +26,9 @@ class SongFactory
 
         self::parseInfo($file_content, $song);
 
-        $notes_raw = substr($file_content, strpos($file_content, self::NOTES . ':'));
-
-        $song->notes_easy = self::parseNotes($notes_raw, self::NOTES_EASY);
-        $song->notes_medium = self::parseNotes($notes_raw, self::NOTES_MEDIUM);
-        $song->notes_hard = self::parseNotes($notes_raw, self::NOTES_HARD);
+        $song->notes_easy = self::parseNotes($file_content, self::NOTES_EASY);
+        $song->notes_medium = self::parseNotes($file_content, self::NOTES_MEDIUM);
+        $song->notes_hard = self::parseNotes($file_content, self::NOTES_HARD);
 
         return $song;
     }
@@ -77,30 +75,26 @@ class SongFactory
      * @param $difficulty
      * @return array
      */
-    private static function parseNotes($notes_raw, $difficulty)
+    private static function parseNotes($file_content, $difficulty)
     {
-        $beats = [];
+        $notes_raw = [];
+        $notes = [];
 
-        // Extract raw notes of chosen difficulty
-        // each difficulty is separated by a semicolon
-        $notes_raw = strtok($notes_raw, ';');
-        while($notes_raw) {
-            if (str_contains($notes_raw, $difficulty)) {
-                // remove other info and whitespace
-                $notes_raw = preg_replace("/.*:/", "", $notes_raw);
-                $notes_raw = trim(preg_replace("/\s+/", "\n", $notes_raw));
+        // Extract raw notes
+        preg_match("/#NOTES:\s*([^:]+:\s*){2}$difficulty:\s*([^:]+:\s*){2}([^;]+)\s*;/", $file_content, $notes_raw);
+        $notes_raw = $notes_raw[3]; // Take only the notes
 
-                $beats = explode(',', $notes_raw);
 
-                foreach($beats as $key => $value) {
-                    $beats[$key] = explode("\n", trim($value));
-                }
-            }
-            $notes_raw = strtok(';');
+        // Prepare raw notes for parsing
+        $notes_raw = trim(preg_replace("/\s+/", "\n", $notes_raw)); // remove other whitespaces
+        $notes = explode(',', $notes_raw);
+
+        foreach ($notes as $key => $value) {
+            $notes[$key] = explode("\n", trim($value));
         }
 
-        // TODO: Convert beats to "mbeat-readable" format
+       // Convert to "mbeat-readable" format
 
-        return $beats;
+        return $notes;
     }
 }
