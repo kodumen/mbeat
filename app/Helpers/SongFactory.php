@@ -17,6 +17,8 @@ class SongFactory
     const NOTES_MEDIUM = 'Medium';
     const NOTES_HARD = 'Hard';
 
+    const MIN_BEATS_PER_MEASURE = 4;
+
     public static function create($file_content)
     {
         $song = new Song();
@@ -26,9 +28,9 @@ class SongFactory
 
         self::parseInfo($file_content, $song);
 
-        $song->notes_easy = self::parseNotes($file_content, self::NOTES_EASY);
-        $song->notes_medium = self::parseNotes($file_content, self::NOTES_MEDIUM);
-        $song->notes_hard = self::parseNotes($file_content, self::NOTES_HARD);
+        $song->notes_easy = self::parseNotes($file_content, self::NOTES_EASY, $song);
+        $song->notes_medium = self::parseNotes($file_content, self::NOTES_MEDIUM, $song);
+        $song->notes_hard = self::parseNotes($file_content, self::NOTES_HARD, $song);
 
         return $song;
     }
@@ -59,7 +61,7 @@ class SongFactory
                     $song->offset = trim($tag_value_pair[1]);
                     break;
                 case self::BPMS:
-                    $song->bpms = trim($tag_value_pair[1]);
+                    $song->bpms = explode(',', trim($tag_value_pair[1]));
                     break;
                 default:
                     break;
@@ -75,10 +77,9 @@ class SongFactory
      * @param $difficulty
      * @return array
      */
-    private static function parseNotes($file_content, $difficulty)
+    private static function parseNotes($file_content, $difficulty, Song $song)
     {
         $notes_raw = [];
-        $notes = [];
 
         // Extract raw notes
         preg_match("/#NOTES:\s*([^:]+:\s*){2}$difficulty:\s*([^:]+:\s*){2}([^;]+)\s*;/", $file_content, $notes_raw);
@@ -86,15 +87,72 @@ class SongFactory
 
 
         // Prepare raw notes for parsing
+        // Include beat number
         $notes_raw = trim(preg_replace("/\s+/", "\n", $notes_raw)); // remove other whitespaces
-        $notes = explode(',', $notes_raw);
+        $measures = explode(',', $notes_raw);
+        $beat_num = 0;
+        foreach ($measures as $key => $value) {
+            $measures[$key] = explode("\n", trim($value));
 
-        foreach ($notes as $key => $value) {
-            $notes[$key] = explode("\n", trim($value));
+            $beat_fraction = self::MIN_BEATS_PER_MEASURE / count($measures[$key]);
+
+            foreach ($measures[$key] as $beat => $notes) {
+                $measures[$key][$beat] = ['number' => $beat_num, 'notes' => $notes];
+                $beat_num += $beat_fraction;
+            }
         }
 
-       // Convert to "mbeat-readable" format
+        // Convert to "mbeat-readable" format
+        // Starting from the last beat and last bpm, calculate the time of the beat
+        $bpms = $song->bpms;
+        $curr_bpm = explode('=', $bpms[count($bpms) - 1]);
+        $mbeat = [];
 
-        return $notes;
+        while ($curr_measure = array_pop($measures)) {
+            while ($curr_beat = array_pop($curr_measure)) {
+                if ($curr_beat['notes'] == '0000') {
+                    continue;
+                }
+
+                // Change bpm
+                if ($curr_beat['number'] <= $curr_bpm[0]) {
+                    array_pop($bpms);
+                    $curr_bpm = explode('=', $bpms[count($bpms) - 1]);
+                }
+
+                // An expensive process, sure, but it works so I'll keep it for now.
+                $time = self::getTotalTime($bpms, $curr_beat['number']);
+
+                array_unshift($mbeat, [
+                    'time' => $time - $song->offset,
+                    'notes' => $curr_beat['notes'],
+                ]);
+            }
+        }
+
+        return $mbeat;
+    }
+
+    /**
+     * Get the total time of bpms up to beat number.
+     *
+     * @param array $bpms
+     * @param $beat_number
+     */
+    public static function getTotalTime(array $bpms, $beat_number)
+    {
+        $curr_bpm = explode('=', array_shift($bpms));
+        $next_bpm = explode('=', array_shift($bpms));
+        $time = 0;
+
+        while($next_bpm[0]) {
+            $time += ($next_bpm[0] - $curr_bpm[0]) * 60 /*sec*/ / $curr_bpm[1];
+            $curr_bpm = $next_bpm;
+            $next_bpm = explode('=', array_shift($bpms));
+        }
+
+        $time += ($beat_number - $curr_bpm[0]) * 60 /*sec*/ / $curr_bpm[1];
+
+        return $time;
     }
 }
