@@ -24,7 +24,8 @@ class AdminController extends Controller
         }
 
         $song = SongFactory::create($sm_contents);
+        $song->save();
 
-        dd($song);
+        return redirect()->back();
     }
 }

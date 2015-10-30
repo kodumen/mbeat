@@ -32,6 +32,8 @@ class SongFactory
         $song->notes_medium = self::parseNotes($file_content, self::NOTES_MEDIUM, $song);
         $song->notes_hard = self::parseNotes($file_content, self::NOTES_HARD, $song);
 
+        unset($song->bpms); // bpms is no longer needed
+
         return $song;
     }
 
