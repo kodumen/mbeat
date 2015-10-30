@@ -17,6 +17,7 @@ class CreateTableSongs extends Migration
             $table->string('title');
             $table->string('title_translit');
             $table->string('artist');
+            $table->string('credit');
             $table->decimal('offset');
             $table->text('notes_easy');
             $table->text('notes_medium');
