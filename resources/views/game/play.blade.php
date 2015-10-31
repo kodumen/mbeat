@@ -15,7 +15,7 @@
 
     request.onload = function () {
         if (request.status >= 200 && request.status < 400) {
-            song_data = request.response;
+            song_data = JSON.parse(request.responseText);
             game.state.start('Load');
         } else {
             alert('An error occured on the server. Please refresh the page.');
