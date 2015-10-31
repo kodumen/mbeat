@@ -10,6 +10,9 @@ class SongFactory
     const TITLE_TRANSLIT = '#TITLETRANSLIT';
     const ARTIST = '#ARTIST';
     const CREDIT = '#CREDIT';
+    const MUSIC = '#MUSIC';
+    const BACKGROUND = '#BACKGROUND';
+    const BG_ARTIST = '#BGARTIST';
     const OFFSET = '#OFFSET';
     const BPMS = '#BPMS';
     const NOTES = '#NOTES';
@@ -45,7 +48,7 @@ class SongFactory
     {
         $token = strtok($file_content, ';');    // represents a #TAG:VALUE pair
         while($token) {
-            $tag_value_pair = explode(':', $token); // 0 is the tag and 1 is the value
+            $tag_value_pair = explode(':', $token, 2); // 0 is the tag and 1 is the value
             switch (trim($tag_value_pair[0])) {
                 case self::TITLE:
                     $song->title = trim($tag_value_pair[1]);
@@ -61,6 +64,15 @@ class SongFactory
                     break;
                 case self::OFFSET:
                     $song->offset = trim($tag_value_pair[1]);
+                    break;
+                case self::BG_ARTIST:
+                    $song->bg_artist = trim($tag_value_pair[1]);
+                    break;
+                case self::MUSIC:
+                    $song->music = trim(stripslashes($tag_value_pair[1]));
+                    break;
+                case self::BACKGROUND:
+                    $song->background = trim(stripslashes($tag_value_pair[1]));
                     break;
                 case self::BPMS:
                     $song->bpms = explode(',', trim($tag_value_pair[1]));
