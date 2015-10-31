@@ -1,6 +1,7 @@
 var loadState = {
     preload: function () {
-        console.log(song_data);
+        game.load.image('background', song_data.background);
+        game.load.audio('music', song_data.music);
     },
 
     create: function () {
