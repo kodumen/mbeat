@@ -15,6 +15,10 @@ Route::get('/', function () {
     return view('welcome');
 });
 
+Route::get('/play/{song}/{difficulty}', 'GameController@play')
+    ->where('song', '[[:digit:]]+')
+    ->where('difficulty', '(easy)|(medium)|(hard)');
+
 Route::get('/song/{song}/{difficulty}', 'SongController@getNotes')
     ->where('song', '[[:digit:]]+')
     ->where('difficulty', '(easy)|(medium)|(hard)');
