@@ -15,7 +15,7 @@ Route::get('/', function () {
     return view('welcome');
 });
 
-Route::get('/play/{song}/{difficulty}', 'SongController@getNotes')
+Route::get('/song/{song}/{difficulty}', 'SongController@getNotes')
     ->where('song', '[[:digit:]]+')
     ->where('difficulty', '(easy)|(medium)|(hard)');
 
