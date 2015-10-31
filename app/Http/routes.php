@@ -15,6 +15,10 @@ Route::get('/', function () {
     return view('welcome');
 });
 
+Route::get('/play/{song}/{difficulty}', 'SongController@getNotes')
+    ->where('song', '[[:digit:]]+')
+    ->where('difficulty', '(easy)|(medium)|(hard)');
+
 // auth.basic uses email for the username field [0]
 Route::group(['middleware' => 'auth.basic'], function () {
     Route::get('/admin', 'AdminController@index');
