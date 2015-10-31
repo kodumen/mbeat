@@ -22,6 +22,9 @@ class Song extends Model
             'title_translit',
             'artist',
             'credit',
+            'music',
+            'background',
+            'bg_artist',
             'offset',
             'notes_' . $difficulty
             )
