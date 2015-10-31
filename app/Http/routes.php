@@ -23,6 +23,9 @@ Route::get('/song/{song}/{difficulty}', 'SongController@getNotes')
     ->where('song', '[[:digit:]]+')
     ->where('difficulty', '(easy)|(medium)|(hard)');
 
+// Get asset. src parameter with the url of asset required
+Route::get('/img', 'GameController@getAsset');
+
 // auth.basic uses email for the username field [0]
 Route::group(['middleware' => 'auth.basic'], function () {
     Route::get('/admin', 'AdminController@index');
