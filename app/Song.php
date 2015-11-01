@@ -29,7 +29,7 @@ class Song extends Model
             'notes_' . $difficulty
             )
             ->where('id', $id)
-            ->get();
+            ->first();
     }
 
     // SETTERS
