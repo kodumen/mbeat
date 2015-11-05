@@ -26,6 +26,7 @@ class Song extends Model
             'background',
             'bg_artist',
             'offset',
+            'bpms',
             'notes_' . $difficulty
             )
             ->where('id', $id)
@@ -49,6 +50,11 @@ class Song extends Model
         $this->attributes['notes_hard'] = json_encode($value);
     }
 
+    public function setBpmsAttribute($value)
+    {
+        $this->attributes['bpms'] = json_encode($value);
+    }
+
     // ACCESSORS
 
     public function getNotesEasyAttribute($value)
@@ -62,6 +68,11 @@ class Song extends Model
     }
 
     public function getNotesHardAttribute($value)
+    {
+        return json_decode($value);
+    }
+
+    public function getBpmsAttribute($value)
     {
         return json_decode($value);
     }

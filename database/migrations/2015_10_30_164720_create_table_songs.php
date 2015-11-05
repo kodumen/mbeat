@@ -22,6 +22,7 @@ class CreateTableSongs extends Migration
             $table->string('music');
             $table->string('background');
             $table->string('bg_artist');
+            $table->text('bpms');
             $table->text('notes_easy');
             $table->text('notes_medium');
             $table->text('notes_hard');

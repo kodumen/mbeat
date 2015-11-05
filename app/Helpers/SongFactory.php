@@ -35,7 +35,7 @@ class SongFactory
         $song->notes_medium = self::parseNotes($file_content, self::NOTES_MEDIUM, $song);
         $song->notes_hard = self::parseNotes($file_content, self::NOTES_HARD, $song);
 
-        unset($song->bpms); // bpms is no longer needed
+        unset($song->bpms_raw);
 
         return $song;
     }
@@ -75,7 +75,8 @@ class SongFactory
                     $song->background = trim(stripslashes($tag_value_pair[1]));
                     break;
                 case self::BPMS:
-                    $song->bpms = explode(',', trim($tag_value_pair[1]));
+                    $song->bpms_raw = explode(',', trim($tag_value_pair[1]));
+                    $song->bpms = self::parseBPMS($tag_value_pair[1]);
                     break;
                 default:
                     break;
@@ -118,7 +119,7 @@ class SongFactory
 
         // Convert to "mbeat-readable" format
         // Starting from the last beat and last bpm, calculate the time of the beat
-        $bpms = $song->bpms;
+        $bpms = $song->bpms_raw;
         $curr_bpm = explode('=', $bpms[count($bpms) - 1]);
         $mbeat = [];
 
@@ -140,6 +141,7 @@ class SongFactory
                 array_unshift($mbeat, [
                     'time' => $time - $song->offset,
                     'notes' => $curr_beat['notes'],
+                    'number' => $curr_beat['number'],
                 ]);
             }
         }
@@ -153,7 +155,7 @@ class SongFactory
      * @param array $bpms
      * @param $beat_number
      */
-    public static function getTotalTime(array $bpms, $beat_number)
+    private static function getTotalTime(array $bpms, $beat_number)
     {
         $curr_bpm = explode('=', array_shift($bpms));
         $next_bpm = explode('=', array_shift($bpms));
@@ -168,5 +170,29 @@ class SongFactory
         $time += ($beat_number - $curr_bpm[0]) * 60 /*sec*/ / $curr_bpm[1];
 
         return $time;
+    }
+
+    /**
+     * Create a queue of bpms
+     *
+     * @param $bpms_raw
+     * @return array
+     */
+    private static function parseBPMS($bpms_raw) {
+        $bpms = explode(',', $bpms_raw);
+        $bpms_length = count($bpms);
+        $bpms_queue = [];
+
+        for ($i = 0; $i < $bpms_length; $i++) {
+            list($curr_beat, $curr_bpm) = explode('=', $bpms[$i]);
+            $next_beat = $i == $bpms_length - 1 ? '' : explode('=', $bpms[$i + 1])[0];
+
+            $bpms_queue[] = [
+                'duration' => $next_beat ? ($next_beat - $curr_beat) * 60 /*sec*/ / $curr_bpm : '',
+                'bpm' => $curr_bpm,
+            ];
+        }
+
+        return $bpms_queue;
     }
 }
