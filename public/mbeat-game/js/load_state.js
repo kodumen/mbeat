@@ -15,9 +15,7 @@ loadState.create = function () {
     this.notes_group = this.add.group();
 
     // Add notes
-    var DEFAULT_BEAT_GAP = 64 /*px*/;
-    var DEFAULT_NOTE_WIDTH = 100 /*px*/;
-    var notes_data = song_data.notes_easy;
+    var notes_data = Mbeat.song_data.notes_easy;
 
     for (var i = notes_data.length; i > 0; i--) {
         var beat_data = notes_data[i - 1];
@@ -25,7 +23,7 @@ loadState.create = function () {
             var note_type = beat_data.notes.charAt(c);
 
             if (note_type == 1) {
-                this.notes_group.create(c * DEFAULT_NOTE_WIDTH, -beat_data.number * DEFAULT_BEAT_GAP, 'red_brick');
+                this.notes_group.create(c * Mbeat.DEFAULT_NOTE_WIDTH, -beat_data.number * Mbeat.DEFAULT_BEAT_GAP, 'red_brick');
             }
         }
     }
@@ -35,5 +33,5 @@ loadState.create = function () {
 };
 
 loadState.update = function () {
-    this.notes_group.y += (64 * 87.5 / 60) * (this.time.elapsedMS / 1000);
+    this.notes_group.y += (Mbeat.DEFAULT_BEAT_GAP * 87.5 / 60) * (this.time.elapsedMS / 1000);
 };
