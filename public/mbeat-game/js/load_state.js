@@ -30,7 +30,7 @@ loadState.create = function () {
                     c * Mbeat.DEFAULT_NOTE_WIDTH,
                     -beat_data.number * Mbeat.DEFAULT_BEAT_GAP,
                     'red_brick',
-                    beat_data,
+                    beat_data.time,
                     1
                 );
 
