@@ -20,7 +20,7 @@ var NoteFactory = function (stage, image_keys) {
  * @returns {*|Phaser.Image|{}|Phaser.Loader}
  */
 NoteFactory.prototype.make = function (x, y, image, time, type) {
-    var note = this.stage.make.image(x, y, image);
+    var note = this.stage.make.sprite(x, y, image);
 
     note.data = {
         time: time,
