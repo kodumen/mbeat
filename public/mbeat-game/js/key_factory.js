@@ -41,11 +41,14 @@ KeyFactory.prototype.makeSet = function (default_img_key, alt_img_key) {
     var key_width = this.state.cache.getImage(default_img_key).width;
 
     for (var i = 0; i < 4; i++) {
-        key_group.add(this.make(
-            i * (key_width + Mbeat.NOTE_GAP),
-            0,
-            [default_img_key, alt_img_key]
-        ));
+        key_group.add(
+            this.make(
+                i * (key_width + Mbeat.NOTE_GAP),
+                0,
+                [default_img_key, alt_img_key]
+            ),
+            true
+        );
     }
 
     return key_group;
