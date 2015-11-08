@@ -15,8 +15,10 @@ loadState.create = function () {
     //music.mute = false;
     //music.play();
 
-    // Add notes
-    var notes_data = Mbeat.song_data.notes_easy;
+    // Get notes and plot to game world
+    var notes_data = Mbeat.song_data.notes_easy ||
+        Mbeat.song_data.notes_medium ||
+        Mbeat.song_data.notes_hard;
 
     this.notes_group = this.songFactory.make(
         notes_data,
