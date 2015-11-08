@@ -26,16 +26,16 @@ loadState.create = function () {
 
     this.notes_group = this.noteFactory.makeFromSong(
         notes_data,
-        Mbeat.DEFAULT_NOTE_GAP,
-        Mbeat.DEFAULT_BEAT_GAP
+        Mbeat.NOTE_GAP,
+        Mbeat.BEAT_GAP
     );
     // manually position the notes group
-    this.notes_group.x = (640 / 2) - (((86 * 4) + (Mbeat.DEFAULT_NOTE_GAP * 3)) / 2);
+    this.notes_group.x = (640 / 2) - (((86 * 4) + (Mbeat.NOTE_GAP * 3)) / 2);
 
     // control
     this.cursor = game.input.keyboard.createCursorKeys();
 };
 
 loadState.update = function () {
-    this.notes_group.y += (Mbeat.DEFAULT_BEAT_GAP * 87.5 / 60) * (this.time.elapsedMS / 1000);
+    this.notes_group.y += (Mbeat.BEAT_GAP * 87.5 / 60) * (this.time.elapsedMS / 1000);
 };
