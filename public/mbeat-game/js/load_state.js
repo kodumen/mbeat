@@ -30,7 +30,7 @@ loadState.create = function () {
         Mbeat.DEFAULT_BEAT_GAP
     );
     // manually position the notes group
-    this.notes_group.x = (640 / 2) - (((86 * 4) + (Mbeat.DEFAULT_NOTE_GAP * 3)) / 2)
+    this.notes_group.x = (640 / 2) - (((86 * 4) + (Mbeat.DEFAULT_NOTE_GAP * 3)) / 2);
 
     // control
     this.cursor = game.input.keyboard.createCursorKeys();
