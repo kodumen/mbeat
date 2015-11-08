@@ -5,6 +5,8 @@ loadState.preload = function () {
     //this.load.audio('music', song_data.music);
     this.load.image('red_brick', '/mbeat-game/img/red_brick.png');
     this.load.image('blue_brick', '/mbeat-game/img/blue_brick.png');
+    this.load.image('white_brick', '/mbeat-game/img/white_brick.png');
+    this.load.image('yellow_brick', '/mbeat-game/img/yellow_brick.png');
 };
 
 loadState.create = function () {
