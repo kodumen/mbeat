@@ -1,9 +1,9 @@
 // Game-related constants and variables
 var Mbeat = {
-    // Constants
+    // CONSTANTS
     DEFAULT_BEAT_GAP: 256, // px
-    DEFAULT_NOTE_WIDTH: 100, // px
+    DEFAULT_NOTE_GAP: 6, // px
 
-    // Variables
+    // VARIABLES
     song_data: {}
 };
