@@ -29,6 +29,12 @@ KeyFactory.prototype.make = function (x, y, image_keys) {
         new KeyBehavior(key, this.state)
     ];
 
+    key.update = function () {
+        for (var i = 0; i < this.behaviors.length; i ++) {
+            this.behaviors[i].update();
+        }
+    };
+
     return key;
 };
 
