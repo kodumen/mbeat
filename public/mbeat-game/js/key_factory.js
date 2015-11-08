@@ -25,6 +25,10 @@ KeyFactory.prototype.make = function (x, y, image_keys) {
         alt_img: image_keys[1]
     };
 
+    key.behaviors = [
+        new KeyBehavior(key, this.state)
+    ];
+
     return key;
 };
 
