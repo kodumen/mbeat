@@ -4,11 +4,15 @@ loadState.preload = function () {
     //this.load.image('background', '/img?src='+ song_data.background);
     //this.load.audio('music', song_data.music);
     this.load.image('red_brick', '/mbeat-game/img/red_brick.png');
+    this.load.image('blue_brick', '/mbeat-game/img/blue_brick.png');
 };
 
 loadState.create = function () {
     // Factories
-    this.songFactory = new SongFactory(this);
+    this.songFactory = new SongFactory(
+        this,
+        ['red_brick', 'blue_brick', 'red_brick', 'blue_brick']
+    );
 
     //this.add.image(0, 0, 'background');
     //music = this.add.audio('music');
@@ -22,9 +26,11 @@ loadState.create = function () {
 
     this.notes_group = this.songFactory.make(
         notes_data,
-        Mbeat.DEFAULT_NOTE_WIDTH,
+        Mbeat.DEFAULT_NOTE_GAP,
         Mbeat.DEFAULT_BEAT_GAP
     );
+    // manually position the notes group
+    this.notes_group.x = (640 / 2) - (((86 * 4) + (Mbeat.DEFAULT_NOTE_GAP * 3)) / 2)
 
     // control
     this.cursor = game.input.keyboard.createCursorKeys();
