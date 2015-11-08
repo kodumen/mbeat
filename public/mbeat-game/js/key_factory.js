@@ -15,9 +15,10 @@ var KeyFactory = function (state) {
  * @param x {Number}
  * @param y {Number}
  * @param image_keys {Array} 0 is the default image, 1 is alternate image
+ * @param keycode {Phaser.KeyCode}
  * @returns {*|Phaser.Sprite}
  */
-KeyFactory.prototype.make = function (x, y, image_keys) {
+KeyFactory.prototype.make = function (x, y, image_keys, keycode) {
     var key = this.state.make.sprite(x, y, image_keys[0]);
 
     key.data = {
@@ -26,7 +27,7 @@ KeyFactory.prototype.make = function (x, y, image_keys) {
     };
 
     key.behaviors = [
-        new KeyBehavior(key, this.state)
+        new KeyBehavior(key, this.state, keycode)
     ];
 
     key.update = function () {
@@ -55,7 +56,8 @@ KeyFactory.prototype.makeSet = function (default_img_key, alt_img_key) {
             this.make(
                 i * (key_width + Mbeat.NOTE_GAP),
                 0,
-                [default_img_key, alt_img_key]
+                [default_img_key, alt_img_key],
+                Mbeat.controls['button_' + i]
             ),
             true
         );
