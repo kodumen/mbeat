@@ -9,7 +9,7 @@ loadState.preload = function () {
 
 loadState.create = function () {
     // Factories
-    this.songFactory = new SongFactory(
+    this.noteFactory = new NoteFactory(
         this,
         ['red_brick', 'blue_brick', 'red_brick', 'blue_brick']
     );
@@ -24,7 +24,7 @@ loadState.create = function () {
         Mbeat.song_data.notes_medium ||
         Mbeat.song_data.notes_hard;
 
-    this.notes_group = this.songFactory.make(
+    this.notes_group = this.noteFactory.makeFromSong(
         notes_data,
         Mbeat.DEFAULT_NOTE_GAP,
         Mbeat.DEFAULT_BEAT_GAP
