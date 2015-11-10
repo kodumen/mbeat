@@ -10,8 +10,6 @@ loadState.preload = function () {
 };
 
 loadState.create = function () {
-    var keyFactory = new KeyFactory(this);
-
     //this.add.image(0, 0, 'background');
     //music = this.add.audio('music');
     //music.mute = false;
@@ -29,13 +27,17 @@ loadState.create = function () {
         Mbeat.NOTE_GAP,
         Mbeat.BEAT_GAP
     );
-    // center the group
-    notes.x = (this.game.width / 2) - (notes.width / 2);
+    notes.x = (this.game.width / 2) - (notes.width / 2); // center the group
 
     // Create keys
-    this.keys_group = keyFactory.makeSet('white_brick', 'yellow_brick');
-    this.keys_group.x = (640 / 2) - (((86 * 4) + (Mbeat.NOTE_GAP * 3)) / 2);
-    this.keys_group.y = 400;
+    var keys = Mbeat.factory.keys(
+        this,
+        'white_brick',
+        'yellow_brick',
+        Mbeat.controls
+    );
+    keys.x = (this.game.width / 2) - (notes.width / 2);
+    keys.y = 400;
 
     // control
     this.cursor = game.input.keyboard.createCursorKeys();
