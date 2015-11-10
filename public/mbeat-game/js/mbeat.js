@@ -6,6 +6,7 @@ var Mbeat = {
 
     // VARIABLES
     song_data: {},
+    factory: {},
     controls: {
         button_0: Phaser.KeyCode.D,
         button_1: Phaser.KeyCode.F,
