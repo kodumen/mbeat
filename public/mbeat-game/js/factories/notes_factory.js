@@ -58,6 +58,10 @@ Mbeat.factory.note = function (state, x, y, key, time, type) {
 
     note.update = function () {
         this.y += (Mbeat.BEAT_GAP * 87.5 / 60) * (state.time.elapsedMS / 1000);
+
+        if (this.y > game.height) {
+            this.destroy();
+        }
     };
 
     return note;
