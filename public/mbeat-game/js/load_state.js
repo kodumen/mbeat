@@ -10,40 +10,39 @@ loadState.preload = function () {
 };
 
 loadState.create = function () {
-    // Factories
-    this.noteFactory = new NoteFactory(
-        this,
-        ['red_brick', 'blue_brick', 'red_brick', 'blue_brick']
-    );
-    var keyFactory = new KeyFactory(this);
-
     //this.add.image(0, 0, 'background');
     //music = this.add.audio('music');
     //music.mute = false;
     //music.play();
 
-    // Get notes and plot to game world
     var notes_data = Mbeat.song_data.notes_easy ||
         Mbeat.song_data.notes_medium ||
         Mbeat.song_data.notes_hard;
 
-    this.notes_group = this.noteFactory.makeFromSong(
+    // Create notes
+    var notes = Mbeat.factory.notes(
+        this,
         notes_data,
+        ['red_brick', 'blue_brick', 'red_brick', 'blue_brick'],
         Mbeat.NOTE_GAP,
         Mbeat.BEAT_GAP
     );
-    // manually position the notes group
-    this.notes_group.x = (640 / 2) - (((86 * 4) + (Mbeat.NOTE_GAP * 3)) / 2);
+    notes.x = (this.game.width / 2) - (notes.width / 2); // center the group
 
     // Create keys
-    this.keys_group = keyFactory.makeSet('white_brick', 'yellow_brick');
-    this.keys_group.x = (640 / 2) - (((86 * 4) + (Mbeat.NOTE_GAP * 3)) / 2);
-    this.keys_group.y = 400;
+    var keys = Mbeat.factory.keys(
+        this,
+        'white_brick',
+        'yellow_brick',
+        Mbeat.controls
+    );
+    keys.x = (this.game.width / 2) - (notes.width / 2);
+    keys.y = 400;
 
     // control
     this.cursor = game.input.keyboard.createCursorKeys();
 };
 
 loadState.update = function () {
-    this.notes_group.y += (Mbeat.BEAT_GAP * 87.5 / 60) * (this.time.elapsedMS / 1000);
+    this.world.update();
 };
