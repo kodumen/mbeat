@@ -17,13 +17,19 @@ loadState.create = function () {
     //music.mute = false;
     //music.play();
 
-    // Get notes and plot to game world
     var notes_data = Mbeat.song_data.notes_easy ||
         Mbeat.song_data.notes_medium ||
         Mbeat.song_data.notes_hard;
 
-    var notes = Mbeat.factory.notes(this, notes_data, ['red_brick', 'blue_brick', 'red_brick', 'blue_brick']);
-    // manually position the notes group
+    // Create notes
+    var notes = Mbeat.factory.notes(
+        this,
+        notes_data,
+        ['red_brick', 'blue_brick', 'red_brick', 'blue_brick'],
+        Mbeat.NOTE_GAP,
+        Mbeat.BEAT_GAP
+    );
+    // center the group
     notes.x = (640 / 2) - (((86 * 4) + (Mbeat.NOTE_GAP * 3)) / 2);
 
     // Create keys

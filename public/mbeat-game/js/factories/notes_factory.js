@@ -4,9 +4,11 @@
  * @param state {Phaser.State}
  * @param notes_data {Array}
  * @param image_keys {Array}
+ * @param note_gap {Number}
+ * @param beat_gap {Number}
  * @returns {*|Phaser.Group}
  */
-Mbeat.factory.notes = function (state, notes_data, image_keys) {
+Mbeat.factory.notes = function (state, notes_data, image_keys, note_gap, beat_gap) {
     var song_group = state.add.group();
 
     for (var i = notes_data.length; i > 0; i--) {
@@ -20,8 +22,8 @@ Mbeat.factory.notes = function (state, notes_data, image_keys) {
                 song_group.add(
                     Mbeat.factory.note(
                         state,
-                        c * (note_width + Mbeat.NOTE_GAP),
-                        -beat_data.number * Mbeat.BEAT_GAP,
+                        c * (note_width + note_gap),
+                        -beat_data.number * beat_gap,
                         image_keys[c],
                         beat_data.time,
                         1
