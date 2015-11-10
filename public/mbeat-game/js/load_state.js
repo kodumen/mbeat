@@ -10,11 +10,6 @@ loadState.preload = function () {
 };
 
 loadState.create = function () {
-    // Factories
-    this.noteFactory = new NoteFactory(
-        this,
-        ['red_brick', 'blue_brick', 'red_brick', 'blue_brick']
-    );
     var keyFactory = new KeyFactory(this);
 
     //this.add.image(0, 0, 'background');
@@ -27,13 +22,9 @@ loadState.create = function () {
         Mbeat.song_data.notes_medium ||
         Mbeat.song_data.notes_hard;
 
-    this.notes_group = this.noteFactory.makeFromSong(
-        notes_data,
-        Mbeat.NOTE_GAP,
-        Mbeat.BEAT_GAP
-    );
+    var notes = Mbeat.factory.notes(this, notes_data, ['red_brick', 'blue_brick', 'red_brick', 'blue_brick']);
     // manually position the notes group
-    this.notes_group.x = (640 / 2) - (((86 * 4) + (Mbeat.NOTE_GAP * 3)) / 2);
+    notes.x = (640 / 2) - (((86 * 4) + (Mbeat.NOTE_GAP * 3)) / 2);
 
     // Create keys
     this.keys_group = keyFactory.makeSet('white_brick', 'yellow_brick');
@@ -45,5 +36,5 @@ loadState.create = function () {
 };
 
 loadState.update = function () {
-    this.notes_group.y += (Mbeat.BEAT_GAP * 87.5 / 60) * (this.time.elapsedMS / 1000);
+    this.world.update();
 };

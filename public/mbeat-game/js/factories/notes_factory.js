@@ -47,11 +47,15 @@ Mbeat.factory.notes = function (state, notes_data, image_keys) {
  * @returns {*|Phaser.Sprite}
  */
 Mbeat.factory.note = function (state, x, y, key, time, type) {
-    var note = state.make.sprite(x, y, key)
+    var note = state.make.sprite(x, y, key);
 
     note.data = {
         time: time,
         type: type
+    };
+
+    note.update = function () {
+        this.y += (Mbeat.BEAT_GAP * 87.5 / 60) * (state.time.elapsedMS / 1000);
     };
 
     return note;

@@ -9,6 +9,7 @@
 <script src="{{asset('/mbeat-game/js/mbeat.js')}}"></script>
 <script src="{{asset('/mbeat-game/js/note_factory.js')}}"></script>
 <script src="{{asset('/mbeat-game/js/key_factory.js')}}"></script>
+<script src="{{asset('/mbeat-game/js/factories/notes_factory.js')}}"></script>
 <script src="{{asset('/mbeat-game/js/behaviors/KeyBehavior.js')}}"></script>
 <script src="{{asset('/mbeat-game/js/load_state.js')}}"></script>
 <script src="{{asset('/mbeat-game/js/main.js')}}"></script>
