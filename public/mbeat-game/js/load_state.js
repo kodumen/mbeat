@@ -30,7 +30,7 @@ loadState.create = function () {
         Mbeat.BEAT_GAP
     );
     // center the group
-    notes.x = (640 / 2) - (((86 * 4) + (Mbeat.NOTE_GAP * 3)) / 2);
+    notes.x = (this.game.width / 2) - (notes.width / 2);
 
     // Create keys
     this.keys_group = keyFactory.makeSet('white_brick', 'yellow_brick');
