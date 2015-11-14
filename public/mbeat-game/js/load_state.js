@@ -18,11 +18,12 @@ loadState.create = function () {
     //music.mute = false;
     //music.play();
 
+    this.time.advancedTiming = true;
+
     // SFX for debugging
     Mbeat.tap_sfx = this.add.audio('tap');
     Mbeat.tap_sfx.mute = false;
     Mbeat.tap_sfx.allowMultiple= true;
-
 
     var notes_data = Mbeat.song_data.notes_easy ||
         Mbeat.song_data.notes_medium ||
@@ -74,9 +75,7 @@ loadState.update = function () {
         this.systems[i].update();
     }
 };
-
 loadState.render = function () {
-    this.time.advancedTiming = true;
     this.game.debug.text('FPS: ' + this.time.fps, 0, 16, '#ffffff');
     this.game.debug.text('BPM: ' + Mbeat.curr_bpm, 0, 32, '#ffffff');
     this.game.debug.text('TIMER: ' + Mbeat.debug.timer, 0, 48, '#ffffff');

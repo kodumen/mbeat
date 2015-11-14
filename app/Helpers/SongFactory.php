@@ -135,8 +135,7 @@ class SongFactory
                     $curr_bpm = explode('=', $bpms[count($bpms) - 1]);
                 }
 
-                // An expensive process, sure, but it works so I'll keep it for now.
-                $time = self::getTotalTime($bpms, $curr_beat['number']);
+                $time = round(self::getTotalTime($bpms, $curr_beat['number']), 3);
 
                 array_unshift($mbeat, [
                     'time' => $time - $song->offset,
@@ -188,7 +187,7 @@ class SongFactory
             $next_beat = $i == $bpms_length - 1 ? '' : explode('=', $bpms[$i + 1])[0];
 
             $bpms_queue[] = [
-                'duration' => $next_beat ? ($next_beat - $curr_beat) * 60 /*sec*/ / $curr_bpm : '',
+                'duration' => $next_beat ? round(($next_beat - $curr_beat) * 60 /*sec*/ / $curr_bpm, 3) : '',
                 'bpm' => $curr_bpm,
             ];
         }
