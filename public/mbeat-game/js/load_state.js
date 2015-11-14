@@ -49,8 +49,10 @@ loadState.create = function () {
 };
 
 loadState.update = function () {
-    this.world.update();
-    this.updateSystems();
+    var i = this.systems.length;
+    while(i--) {
+        this.systems[i].update();
+    }
 };
 
 loadState.render = function () {
@@ -58,12 +60,5 @@ loadState.render = function () {
     this.game.debug.text('FPS: ' + this.time.fps, 0, 16, '#ffffff');
     this.game.debug.text('BPM: ' + Mbeat.curr_bpm, 0, 32, '#ffffff');
     this.game.debug.text('TIMER: ' + Mbeat.debug.timer, 0, 48, '#ffffff');
-    this.game.debug.text('TIMER: ' + Mbeat.debug.duration, 0, 64, '#ffffff');
-};
-
-loadState.updateSystems = function () {
-    var i = this.systems.length;
-    while(i--) {
-        this.systems[i].update();
-    }
+    this.game.debug.text('DURATION: ' + Mbeat.debug.duration, 0, 64, '#ffffff');
 };
