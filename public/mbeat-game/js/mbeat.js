@@ -5,7 +5,7 @@ var Mbeat = {
     NOTE_GAP: 6, // px
     KEY_HEIGHT: 400, // px
     BPM: 60,
-    BEAT_OFFSET: 0.013, // arbitrary number to sync notes properly
+    BEAT_OFFSET: 0.023, // arbitrary number to sync notes properly
 
     // VARIABLES
     song_data: {},

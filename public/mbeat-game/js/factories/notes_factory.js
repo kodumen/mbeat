@@ -18,7 +18,7 @@ Mbeat.factory.notes = function (state, notes_data, image_keys, note_gap, beat_ga
             var note_type = beat_data.notes.charAt(c);
             var note_width = state.cache.getImage(image_keys[c]).width;
 
-            if (note_type == 1) {
+            if (note_type == 1 || note_type == 2) {
                 song_group.add(
                     Mbeat.factory.note(
                         state,
@@ -57,18 +57,14 @@ Mbeat.factory.note = function (state, x, y, key, time, type, column) {
         time: time,
         type: type,
         column: column,
-        isLogged: true
+        isLogged: false
     };
 
     note.update = function () {
         this.y += (Mbeat.BEAT_GAP * Mbeat.curr_bpm / 60 /* sec */) * (state.time.physicsElapsed);
 
         if (this.y >= Mbeat.KEY_HEIGHT && !this.data.isLogged) {
-            console.log(
-                'NOTE_TIME: ' + this.data.time
-                + "\n" +
-                'CURR_TIME: ' + Mbeat.curr_time
-            );
+            Mbeat.tap_sfx.play();
             this.data.isLogged = true;
         }
 

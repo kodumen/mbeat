@@ -5,6 +5,7 @@ loadState.systems = [];
 loadState.preload = function () {
     //this.load.image('background', '/img?src='+ song_data.background);
     this.load.audio('music', Mbeat.song_data.music);
+    this.load.audio('tap', '/mbeat-game/switch26.wav');
     this.load.image('red_brick', '/mbeat-game/img/red_brick.png');
     this.load.image('blue_brick', '/mbeat-game/img/blue_brick.png');
     this.load.image('white_brick', '/mbeat-game/img/white_brick.png');
@@ -16,6 +17,12 @@ loadState.create = function () {
     //music = this.add.audio('music');
     //music.mute = false;
     //music.play();
+
+    // SFX for debugging
+    Mbeat.tap_sfx = this.add.audio('tap');
+    Mbeat.tap_sfx.mute = false;
+    Mbeat.tap_sfx.allowMultiple= true;
+
 
     var notes_data = Mbeat.song_data.notes_easy ||
         Mbeat.song_data.notes_medium ||
