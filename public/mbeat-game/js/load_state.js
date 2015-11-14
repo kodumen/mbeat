@@ -22,14 +22,14 @@ loadState.create = function () {
         Mbeat.song_data.notes_hard;
 
     // Create notes
-    var notes = Mbeat.factory.notes(
+    Mbeat.notes = Mbeat.factory.notes(
         this,
         notes_data,
         ['red_brick', 'blue_brick', 'red_brick', 'blue_brick'],
         Mbeat.NOTE_GAP,
         Mbeat.BEAT_GAP
     );
-    notes.x = (this.game.width / 2) - (notes.width / 2); // center the group
+    Mbeat.notes.x = (this.game.width / 2) - (Mbeat.notes.width / 2); // center the group
 
     // Create keys
     var keys = Mbeat.factory.keys(
@@ -38,7 +38,7 @@ loadState.create = function () {
         'yellow_brick',
         Mbeat.controls
     );
-    keys.x = (this.game.width / 2) - (notes.width / 2);
+    keys.x = (this.game.width / 2) - (keys.width / 2);
     keys.y = Mbeat.KEY_HEIGHT;
 
     // BPM Manager
@@ -51,11 +51,17 @@ loadState.create = function () {
         (Mbeat.KEY_HEIGHT / Mbeat.BEAT_GAP) + Mbeat.song_data.offset
     );
 
-    // control
-    this.cursor = game.input.keyboard.createCursorKeys();
+    // Take into account the time before beat 0 hits
+    // Song offset was also taken into account because that is used
+    // to calculate the time for each note.
+    Mbeat.curr_time = (-Mbeat.KEY_HEIGHT / Mbeat.BEAT_GAP)
+        - Mbeat.song_data.offset
+        - Mbeat.BEAT_OFFSET;
 };
 
 loadState.update = function () {
+    Mbeat.curr_time += this.time.physicsElapsed;
+
     var i = this.systems.length;
     while(i--) {
         this.systems[i].update();
@@ -68,5 +74,5 @@ loadState.render = function () {
     this.game.debug.text('BPM: ' + Mbeat.curr_bpm, 0, 32, '#ffffff');
     this.game.debug.text('TIMER: ' + Mbeat.debug.timer, 0, 48, '#ffffff');
     this.game.debug.text('DURATION: ' + Mbeat.debug.duration, 0, 64, '#ffffff');
-    this.game.debug.text('MUSIC_TIMER: ' + Mbeat.debug.music_timer, 0, 80, '#ffffff');
+    this.game.debug.text('TIME: ' + Mbeat.curr_time, 0, 80, '#ffffff');
 };

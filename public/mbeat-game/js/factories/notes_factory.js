@@ -26,7 +26,8 @@ Mbeat.factory.notes = function (state, notes_data, image_keys, note_gap, beat_ga
                         -beat_data.number * beat_gap,
                         image_keys[c],
                         beat_data.time,
-                        1
+                        1,
+                        c
                     ),
                     true
                 );
@@ -46,18 +47,30 @@ Mbeat.factory.notes = function (state, notes_data, image_keys, note_gap, beat_ga
  * @param key {String}
  * @param time {Number}
  * @param type {Number}
+ * @param column {Number}
  * @returns {*|Phaser.Sprite}
  */
-Mbeat.factory.note = function (state, x, y, key, time, type) {
+Mbeat.factory.note = function (state, x, y, key, time, type, column) {
     var note = state.make.sprite(x, y, key);
 
     note.data = {
         time: time,
-        type: type
+        type: type,
+        column: column,
+        isLogged: true
     };
 
     note.update = function () {
         this.y += (Mbeat.BEAT_GAP * Mbeat.curr_bpm / 60 /* sec */) * (state.time.physicsElapsed);
+
+        if (this.y >= Mbeat.KEY_HEIGHT && !this.data.isLogged) {
+            console.log(
+                'NOTE_TIME: ' + this.data.time
+                + "\n" +
+                'CURR_TIME: ' + Mbeat.curr_time
+            );
+            this.data.isLogged = true;
+        }
 
         if (this.y > game.height) {
             this.destroy();

@@ -18,7 +18,8 @@ Mbeat.factory.keys = function (state, img0_key, img1_key, controls) {
                 0,
                 img0_key,
                 img1_key,
-                controls['button_' + i]
+                controls['button_' + i],
+                i
             ),
             true
         );
@@ -36,22 +37,46 @@ Mbeat.factory.keys = function (state, img0_key, img1_key, controls) {
  * @param img0_key {String}
  * @param img1_key {String}
  * @param keycode {Phaser.KeyCode}
+ * @param column {Number}
  * @returns {Phaser.Sprite}
  */
-Mbeat.factory.key = function (state, x, y, img0_key, img1_key, keycode) {
+Mbeat.factory.key = function (state, x, y, img0_key, img1_key, keycode, column) {
     var key = state.make.sprite(x, y, img0_key);
 
     key.data = {
         img0_key: img0_key,
         img1_key: img1_key,
-        keycode: keycode
+        keycode: keycode,
+        column: column,
+        canPress: true
     };
 
     key.update = function () {
-        if (game.input.keyboard.isDown(this.data.keycode)) {
+        if (game.input.keyboard.isDown(this.data.keycode) && this.data.canPress) {
             this.loadTexture(this.data.img1_key);
-        } else {
+            this.data.canPress = false;
+
+            // Look for nearest note
+            for (var i = Mbeat.notes.children.length; i > 0 ; i--) {
+                var note = Mbeat.notes.children[i - 1];
+
+                var time_diff = note.data.time - Mbeat.curr_time;
+
+                if (time_diff > 1) {
+                    return;
+                }
+
+                if (note.data.column != this.data.column) {
+                    continue;
+                }
+
+                //console.log('note_time: ' + note.data.time, 'curr_time: ' + Mbeat.curr_time);
+            }
+            // judge timing
+
+        } else if (!game.input.keyboard.isDown(this.data.keycode)) {
             this.loadTexture(this.data.img0_key);
+            this.data.canPress = true;
         }
     };
 
