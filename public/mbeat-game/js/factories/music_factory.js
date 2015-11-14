@@ -1,8 +1,17 @@
-Mbeat.factory.music = function (state, music_key, offset) {
+/**
+ * Create a Sound object and add it to the world. Play the sound
+ * once after the specified delay.
+ *
+ * @param state {Phaser.State|Phaser.Game}
+ * @param music_key {String}
+ * @param delay {Number}
+ * @returns {{}}
+ */
+Mbeat.factory.music = function (state, music_key, delay) {
     var system = {};
 
     system.state = state;
-    system.offset = offset;
+    system.offset = delay;
     system.music = state.add.audio(music_key);
     system.timer = 0;
     system.hasPlayed = false;
