@@ -4,7 +4,7 @@ loadState.systems = [];
 
 loadState.preload = function () {
     //this.load.image('background', '/img?src='+ song_data.background);
-    //this.load.audio('music', song_data.music);
+    this.load.audio('music', Mbeat.song_data.music);
     this.load.image('red_brick', '/mbeat-game/img/red_brick.png');
     this.load.image('blue_brick', '/mbeat-game/img/blue_brick.png');
     this.load.image('white_brick', '/mbeat-game/img/white_brick.png');
@@ -44,6 +44,13 @@ loadState.create = function () {
     // BPM Manager
     Mbeat.factory.bpmManager(this, Mbeat.song_data.bpms);
 
+    // Music
+    Mbeat.factory.music(
+        this,
+        'music',
+        (Mbeat.KEY_HEIGHT / Mbeat.BEAT_GAP) + Mbeat.song_data.offset
+    );
+
     // control
     this.cursor = game.input.keyboard.createCursorKeys();
 };
@@ -61,4 +68,5 @@ loadState.render = function () {
     this.game.debug.text('BPM: ' + Mbeat.curr_bpm, 0, 32, '#ffffff');
     this.game.debug.text('TIMER: ' + Mbeat.debug.timer, 0, 48, '#ffffff');
     this.game.debug.text('DURATION: ' + Mbeat.debug.duration, 0, 64, '#ffffff');
+    this.game.debug.text('MUSIC_TIMER: ' + Mbeat.debug.music_timer, 0, 80, '#ffffff');
 };

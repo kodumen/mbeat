@@ -55,6 +55,11 @@ class Song extends Model
         $this->attributes['bpms'] = json_encode($value);
     }
 
+    public function setOffsetAttribute($value)
+    {
+        $this->attributes['offset'] = (float) $value;
+    }
+
     // ACCESSORS
 
     public function getNotesEasyAttribute($value)
@@ -75,5 +80,10 @@ class Song extends Model
     public function getBpmsAttribute($value)
     {
         return json_decode($value);
+    }
+
+    public function getOffsetAttribute($value)
+    {
+        return (float) $value;
     }
 }
