@@ -1,5 +1,7 @@
 var loadState = new Phaser.State();
 
+loadState.systems = [];
+
 loadState.preload = function () {
     //this.load.image('background', '/img?src='+ song_data.background);
     //this.load.audio('music', song_data.music);
@@ -37,12 +39,26 @@ loadState.create = function () {
         Mbeat.controls
     );
     keys.x = (this.game.width / 2) - (notes.width / 2);
-    keys.y = 400;
+    keys.y = Mbeat.KEY_HEIGHT;
+
+    // BPM Manager
+    Mbeat.factory.bpmManager(this, Mbeat.song_data.bpms);
 
     // control
     this.cursor = game.input.keyboard.createCursorKeys();
 };
 
 loadState.update = function () {
-    this.world.update();
+    var i = this.systems.length;
+    while(i--) {
+        this.systems[i].update();
+    }
+};
+
+loadState.render = function () {
+    this.time.advancedTiming = true;
+    this.game.debug.text('FPS: ' + this.time.fps, 0, 16, '#ffffff');
+    this.game.debug.text('BPM: ' + Mbeat.curr_bpm, 0, 32, '#ffffff');
+    this.game.debug.text('TIMER: ' + Mbeat.debug.timer, 0, 48, '#ffffff');
+    this.game.debug.text('DURATION: ' + Mbeat.debug.duration, 0, 64, '#ffffff');
 };
