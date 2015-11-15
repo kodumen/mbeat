@@ -84,4 +84,5 @@ loadState.render = function () {
     this.game.debug.text('TIME: ' + Mbeat.curr_time, 0, 64, '#ffffff');
     this.game.debug.text('NOTE_TIME: ' + Mbeat.debug.note_time, 0, 80, '#ffffff');
     this.game.debug.text('DIFF: ' + Mbeat.debug.timing_diff, 0, 96, '#ffffff');
+    this.game.debug.text('COUNT: ' + Mbeat.notes.children.length, 0, 112, '#ffffff');
 };
