@@ -61,12 +61,7 @@ loadState.create = function () {
         (Mbeat.KEY_HEIGHT / Mbeat.BEAT_GAP) + Mbeat.song_data.offset
     );
 
-    // Take into account the time before beat 0 hits
-    // Song offset was also taken into account because that is used
-    // to calculate the time for each note.
-    //Mbeat.curr_time = (-Mbeat.KEY_HEIGHT / Mbeat.BEAT_GAP)
-    //    - Mbeat.song_data.offset
-    //    + Mbeat.BEAT_OFFSET;
+    Mbeat.curr_time = -(Mbeat.KEY_HEIGHT / Mbeat.BEAT_GAP);
 };
 
 loadState.update = function () {

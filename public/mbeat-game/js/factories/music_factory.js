@@ -15,12 +15,9 @@ Mbeat.factory.music = function (state, music_key, delay) {
     system.music = state.add.audio(music_key);
     system.timer = 0;
     system.hasPlayed = false;
-    system.sometime = -(Mbeat.KEY_HEIGHT / Mbeat.BEAT_GAP);
 
     system.update = function () {
         this.timer += this.state.time.physicsElapsed;
-        //Mbeat.curr_time = this.timer - this.offset + Mbeat.TIME_OFFSET;
-        Mbeat.curr_time = system.sometime + this.timer;
 
         if (this.timer >= this.offset && !this.hasPlayed) {
             this.music.mute = false;

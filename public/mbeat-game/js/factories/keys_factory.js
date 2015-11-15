@@ -101,8 +101,8 @@ Mbeat.factory.key = function (state, x, y, img0_key, img1_key, keycode, column) 
                 }
 
                 //Mbeat.tap_sfx.play();
-                //Mbeat.debug.note_time = note.data.time;
-                //Mbeat.debug.timing_diff = diff;
+                Mbeat.debug.note_time = note.data.time;
+                Mbeat.debug.timing_diff = diff;
 
                 Mbeat.debug.judgement = judgement;
             }
