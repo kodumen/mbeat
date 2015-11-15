@@ -63,7 +63,7 @@ Mbeat.factory.key = function (state, x, y, img0_key, img1_key, keycode, column) 
 
                 var time_diff = note.data.time - Mbeat.curr_time;
 
-                if (time_diff > 1) {
+                if (time_diff > Mbeat.MISS_EARLY) {
                     return;
                 }
 
@@ -73,11 +73,38 @@ Mbeat.factory.key = function (state, x, y, img0_key, img1_key, keycode, column) 
             }
             // judge timing
             if (note) {
-                Mbeat.tap_sfx.play();
-                Mbeat.debug.note_time = note.data.time;
-                Mbeat.debug.timing_diff = note.data.time - Mbeat.curr_time;
+                var diff = note.data.time - Mbeat.curr_time;
+                var judgement = '';
 
-                note.destroy();
+                if (diff <= Mbeat.MISS_EARLY && diff > Mbeat.GOOD_EARLY) {
+                    judgement = 'MISS';
+                } else if (diff <= Mbeat.GOOD_EARLY && diff > Mbeat.GREAT_EARLY) {
+                    judgement = 'GOOD';
+                } else if (diff <= Mbeat.GREAT_EARLY && diff > Mbeat.PERFECT_EARLY) {
+                    judgement = 'GREAT';
+                } else if (diff <= Mbeat.PERFECT_EARLY && diff > Mbeat.PERFECT_LATE) {
+                    judgement = 'PERFECT';
+                } else if (diff <= Mbeat.PERFECT_LATE && diff > Mbeat.GREAT_LATE) {
+                    judgement = 'GREAT';
+                } else if (diff <= Mbeat.GREAT_EARLY && diff > Mbeat.GOOD_LATE) {
+                    judgement = 'GOOD';
+                } else if (diff <= Mbeat.GOOD_LATE) {
+                    judgement = 'MISS';
+                }
+
+                if (note.data.time == 79.751) {
+                    console.log(Mbeat.curr_time);
+                }
+
+                if (judgement) {
+                    note.destroy();
+                }
+
+                //Mbeat.tap_sfx.play();
+                Mbeat.debug.note_time = note.data.time;
+                Mbeat.debug.timing_diff = diff;
+
+                Mbeat.debug.judgement = judgement;
             }
         } else if (!game.input.keyboard.isDown(this.data.keycode)) {
             this.loadTexture(this.data.img0_key);

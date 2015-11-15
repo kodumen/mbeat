@@ -23,7 +23,7 @@ Mbeat.factory.bpmManager = function (state, bpm_queue) {
     system.update = function () {
         this.timer += this.state.time.physicsElapsed;
 
-        if (this.queue[0].duration !== '' && this.timer >= this.queue[0].duration) {
+        if (this.queue[0].duration !== '' && this.timer > this.queue[0].duration) {
             this.timer = 0;
             this.queue.shift();
         }

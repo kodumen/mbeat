@@ -30,6 +30,7 @@ class SongController extends Controller
         }
 
         $song = SongFactory::create($sm_contents);
+//        return response()->json($song->notes_hard);
         $song->save();
 
         return redirect()->back();

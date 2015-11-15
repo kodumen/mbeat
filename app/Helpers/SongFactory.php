@@ -125,14 +125,16 @@ class SongFactory
 
         while ($curr_measure = array_pop($measures)) {
             while ($curr_beat = array_pop($curr_measure)) {
-                if ($curr_beat['notes'] == '0000') {
-                    continue;
-                }
-
                 // Change bpm
                 if ($curr_beat['number'] <= $curr_bpm[0]) {
                     array_pop($bpms);
-                    $curr_bpm = explode('=', $bpms[count($bpms) - 1]);
+                    if (count($bpms)) {
+                        $curr_bpm = explode('=', $bpms[count($bpms) - 1]);
+                    }
+                }
+
+                if ($curr_beat['notes'] == '0000') {
+                    continue;
                 }
 
                 $time = round(self::getTotalTime($bpms, $curr_beat['number']), 3);
@@ -142,6 +144,7 @@ class SongFactory
                     'notes' => $curr_beat['notes'],
                     'number' => $curr_beat['number'],
                 ]);
+
             }
         }
 
