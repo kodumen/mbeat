@@ -7,6 +7,7 @@ var Mbeat = {
     BPM: 60,
     BEAT_OFFSET: -0.27, // arbitrary number to sync notes properly
                     // negative value shifts the song earlier, positive shifts it later
+    TIME_OFFSET: 0.15,   // arbitrary number to time notes
 
     // VARIABLES
     song_data: {},
