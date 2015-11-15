@@ -65,6 +65,8 @@ Mbeat.factory.note = function (state, x, y, key, time, type, column) {
 
         if (this.y >= Mbeat.KEY_HEIGHT && !this.data.isLogged) {
             Mbeat.tap_sfx.play();
+            Mbeat.debug.note_time = this.data.time;
+            Mbeat.debug.timing_diff = this.data.time - Mbeat.curr_time;
             this.data.isLogged = true;
         }
 

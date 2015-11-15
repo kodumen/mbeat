@@ -13,12 +13,14 @@ loadState.preload = function () {
 };
 
 loadState.create = function () {
+    // config
+    this.game.antialias = false;
+    //this.time.advancedTiming = true;
+
     //this.add.image(0, 0, 'background');
     //music = this.add.audio('music');
     //music.mute = false;
     //music.play();
-
-    this.time.advancedTiming = true;
 
     // SFX for debugging
     Mbeat.tap_sfx = this.add.audio('tap');
@@ -62,9 +64,9 @@ loadState.create = function () {
     // Take into account the time before beat 0 hits
     // Song offset was also taken into account because that is used
     // to calculate the time for each note.
-    Mbeat.curr_time = (-Mbeat.KEY_HEIGHT / Mbeat.BEAT_GAP)
-        - Mbeat.song_data.offset
-        - Mbeat.BEAT_OFFSET;
+    //Mbeat.curr_time = (-Mbeat.KEY_HEIGHT / Mbeat.BEAT_GAP)
+    //    - Mbeat.song_data.offset
+    //    + Mbeat.BEAT_OFFSET;
 };
 
 loadState.update = function () {
@@ -78,7 +80,8 @@ loadState.update = function () {
 loadState.render = function () {
     this.game.debug.text('FPS: ' + this.time.fps, 0, 16, '#ffffff');
     this.game.debug.text('BPM: ' + Mbeat.curr_bpm, 0, 32, '#ffffff');
-    this.game.debug.text('TIMER: ' + Mbeat.debug.timer, 0, 48, '#ffffff');
-    this.game.debug.text('DURATION: ' + Mbeat.debug.duration, 0, 64, '#ffffff');
-    this.game.debug.text('TIME: ' + Mbeat.curr_time, 0, 80, '#ffffff');
+    this.game.debug.text('DURATION: ' + Mbeat.debug.duration, 0, 48, '#ffffff');
+    this.game.debug.text('TIME: ' + Mbeat.curr_time, 0, 64, '#ffffff');
+    this.game.debug.text('NOTE_TIME: ' + Mbeat.debug.note_time, 0, 80, '#ffffff');
+    this.game.debug.text('DIFF: ' + Mbeat.debug.timing_diff, 0, 96, '#ffffff');
 };
