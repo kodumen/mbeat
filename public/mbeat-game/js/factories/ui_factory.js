@@ -20,32 +20,48 @@ Mbeat.factory.ui.judgment = function (state, x, y, anchor_x, anchor_y, font, siz
     judgment.anchor.y = anchor_y;
     judgment.fill = Mbeat.COLOR_BLACK;
 
+    // The value subtracted to the alpha
+    judgment.alpha_decrease = 1;
+
     judgment.update = function () {
-        if (Mbeat.player.is_judgment_changed) {
-            this.text = Mbeat.player.judgment;
-
-            switch (Mbeat.player.judgment) {
-                case Mbeat.STR_BAD:
-                    this.fill = Mbeat.COLOR_VIOLET;
-                    break;
-                case Mbeat.STR_GOOD:
-                    this.fill = Mbeat.COLOR_BLUE;
-                    break;
-                case Mbeat.STR_GREAT:
-                    this.fill = Mbeat.COLOR_GREEN;
-                    break;
-                case Mbeat.STR_PERFECT:
-                    this.fill = Mbeat.COLOR_YELLOW;
-                    break;
-                case Mbeat.STR_MISS:
-                    this.fill = Mbeat.COLOR_RED;
-                    break;
-                default:
-                    break;
+        // Fade-out
+        if (this.alpha > 0) {
+            this.alpha -= this.alpha_decrease * game.time.physicsElapsed;
+            // Clamp to 0
+            if (this.alpha <= 0) {
+                this.alpha = 0;
             }
-
-            Mbeat.player.is_judgment_changed = false;
         }
+
+        if (!Mbeat.player.is_judgment_changed) {
+            return;
+        }
+
+        this.text = Mbeat.player.judgment;
+        Mbeat.player.is_judgment_changed = false;
+
+        switch (Mbeat.player.judgment) {
+            case Mbeat.STR_BAD:
+                this.fill = Mbeat.COLOR_VIOLET;
+                break;
+            case Mbeat.STR_GOOD:
+                this.fill = Mbeat.COLOR_BLUE;
+                break;
+            case Mbeat.STR_GREAT:
+                this.fill = Mbeat.COLOR_GREEN;
+                break;
+            case Mbeat.STR_PERFECT:
+                this.fill = Mbeat.COLOR_YELLOW;
+                break;
+            case Mbeat.STR_MISS:
+                this.fill = Mbeat.COLOR_RED;
+                break;
+            default:
+                break;
+        }
+
+        // Reset alpha
+        this.alpha = 1;
     };
 
     return judgment;
