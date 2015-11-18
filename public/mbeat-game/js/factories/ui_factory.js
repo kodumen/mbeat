@@ -27,7 +27,7 @@ Mbeat.factory.ui.judgment = function (state, x, y, anchor_x, anchor_y, font, siz
         // Fade-out
         if (this.alpha > 0) {
             this.alpha -= this.alpha_decrease * game.time.physicsElapsed;
-            // Clamp to 0
+            // Negative alpha is visible
             if (this.alpha <= 0) {
                 this.alpha = 0;
             }
