@@ -15,11 +15,20 @@ var Mbeat = {
     GREAT_LATE:-10,
     GOOD_LATE: -16,
 
-    STR_BAD : 'BAD',
-    STR_GOOD : 'GOOD',
-    STR_GREAT : 'GREAT',
-    STR_PERFECT : 'PERFECT',
-    STR_MISS : 'MISS',
+    STR_BAD: 'BAD',
+    STR_GOOD: 'GOOD',
+    STR_GREAT: 'GREAT',
+    STR_PERFECT: 'PERFECT',
+    STR_MISS: 'MISS',
+
+    COLOR_RED: '#FA0D4D',
+    COLOR_ORANGE: '#FA6929',
+    COLOR_YELLOW: '#FFD94C',
+    COLOR_GREEN: '#00E369',
+    COLOR_BLUE: '#4D9FF2',
+    COLOR_VIOLET: '#9532FA',
+    COLOR_WHITE: '#ffffff',
+    COLOR_BLACK: '#0d0d0d',
 
 
     // VARIABLES
