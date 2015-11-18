@@ -65,7 +65,6 @@ loadState.create = function () {
 };
 
 loadState.update = function () {
-    Mbeat.curr_time += this.time.physicsElapsed;
 
     var i = this.systems.length;
     while(i--) {
@@ -77,7 +76,7 @@ loadState.render = function () {
     this.game.debug.text('BPM: ' + Mbeat.curr_bpm, 0, 32, '#ffffff');
     this.game.debug.text('DURATION: ' + Mbeat.debug.duration, 0, 48, '#ffffff');
     this.game.debug.text('TIME: ' + Mbeat.curr_time, 0, 64, '#ffffff');
-    this.game.debug.text('NOTE_TIME: ' + Mbeat.debug.note_time, 0, 80, '#ffffff');
-    this.game.debug.text('DIFF: ' + Mbeat.debug.timing_diff, 0, 96, '#ffffff');
+    this.game.debug.text('NOTE_Y: ' + Mbeat.debug.note_y, 0, 80, '#ffffff');
+    this.game.debug.text('DIFF: ' + Mbeat.debug.y_diff, 0, 96, '#ffffff');
     this.game.debug.text('JUDGEMENT: ' + Mbeat.debug.judgement, 0, 112, '#ffffff');
 };

@@ -9,15 +9,14 @@ var Mbeat = {
                     // negative value shifts the song earlier, positive shifts it later
     TIME_OFFSET: 0.15,   // arbitrary number to time notes
 
-    // JUDGEMENT
-    MISS_EARLY: 0.7,
-    GOOD_EARLY: 0.4,
-    GREAT_EARLY: 0.2,
-    PERFECT_EARLY: 0.15,
-    PERFECT_LATE: -0.15,
-    GREAT_LATE: -0.18,
-    GOOD_LATE: -0.2,
-    MISS_LATE: -0.3,
+    // JUDGEMENT (PIXELS)
+    MISS: 64,
+    GOOD_EARLY: 16,
+    GREAT_EARLY: 10,
+    PERFECT_EARLY: 4,
+    PERFECT_LATE: -4,
+    GREAT_LATE:-10,
+    GOOD_LATE: -16,
 
 
     // VARIABLES

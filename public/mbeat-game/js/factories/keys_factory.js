@@ -73,27 +73,24 @@ Mbeat.factory.key = function (state, x, y, img0_key, img1_key, keycode, column) 
             }
             // judge timing
             if (note) {
-                var diff = note.data.time - Mbeat.curr_time;
+                var diff = Mbeat.KEY_HEIGHT - note.y;
+                var speed = Mbeat.curr_bpm / Mbeat.BPM;
                 var judgement = '';
 
-                if (diff <= Mbeat.MISS_EARLY && diff > Mbeat.GOOD_EARLY) {
+                if (diff <= Mbeat.MISS * speed && diff > Mbeat.GOOD_EARLY * speed) {
                     judgement = 'MISS';
-                } else if (diff <= Mbeat.GOOD_EARLY && diff > Mbeat.GREAT_EARLY) {
+                } else if (diff <= Mbeat.GOOD_EARLY * speed && diff > Mbeat.GREAT_EARLY * speed) {
                     judgement = 'GOOD';
-                } else if (diff <= Mbeat.GREAT_EARLY && diff > Mbeat.PERFECT_EARLY) {
+                } else if (diff <= Mbeat.GREAT_EARLY * speed && diff > Mbeat.PERFECT_EARLY * speed) {
                     judgement = 'GREAT';
-                } else if (diff <= Mbeat.PERFECT_EARLY && diff > Mbeat.PERFECT_LATE) {
+                } else if (diff <= Mbeat.PERFECT_EARLY * speed && diff > Mbeat.PERFECT_LATE * speed) {
                     judgement = 'PERFECT';
-                } else if (diff <= Mbeat.PERFECT_LATE && diff > Mbeat.GREAT_LATE) {
+                } else if (diff <= Mbeat.PERFECT_LATE * speed && diff > Mbeat.GREAT_LATE * speed) {
                     judgement = 'GREAT';
-                } else if (diff <= Mbeat.GREAT_EARLY && diff > Mbeat.GOOD_LATE) {
+                } else if (diff <= Mbeat.GREAT_EARLY * speed && diff > Mbeat.GOOD_LATE * speed) {
                     judgement = 'GOOD';
-                } else if (diff <= Mbeat.GOOD_LATE) {
+                } else if (diff <= Mbeat.GOOD_LATE * speed) {
                     judgement = 'MISS';
-                }
-
-                if (note.data.time == 79.751) {
-                    console.log(Mbeat.curr_time);
                 }
 
                 if (judgement) {
@@ -101,8 +98,8 @@ Mbeat.factory.key = function (state, x, y, img0_key, img1_key, keycode, column) 
                 }
 
                 //Mbeat.tap_sfx.play();
-                Mbeat.debug.note_time = note.data.time;
-                Mbeat.debug.timing_diff = diff;
+                Mbeat.debug.note_y = note.y;
+                Mbeat.debug.y_diff = diff;
 
                 Mbeat.debug.judgement = judgement;
             }
