@@ -70,6 +70,17 @@ loadState.create = function () {
         'music',
         (Mbeat.KEY_HEIGHT / Mbeat.BEAT_GAP) + Mbeat.song_data.offset
     );
+
+    // Score
+    Mbeat.factory.ui.score(
+        this,
+        this.game.width / 2,
+        12,
+        0.5,
+        0,
+        'Fjalla One',
+        24
+    );
 };
 
 loadState.update = function () {

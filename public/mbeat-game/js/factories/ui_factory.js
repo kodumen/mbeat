@@ -68,3 +68,27 @@ Mbeat.factory.ui.judgment = function (state, x, y, anchor_x, anchor_y, font, siz
 
     return judgment;
 };
+
+/**
+ * Create score text and add to the world
+ *
+ * @param state {Phaser.State|Phaser.Game}
+ * @param x {Number}
+ * @param y {Number}
+ * @param anchor_x {Number}
+ * @param anchor_y {Number}
+ * @param font {String}
+ * @param size {Number}
+ */
+Mbeat.factory.ui.score = function (state, x, y, anchor_x, anchor_y, font, size) {
+    var score = state.add.text(x, y, '0', {font: size + 'px ' + font});
+    score.anchor.x = anchor_x;
+    score.anchor.y = anchor_y;
+    score.fill = Mbeat.COLOR_WHITE;
+
+    score.update = function () {
+        this.text = Mbeat.player.score;
+    };
+
+    return score;
+};
