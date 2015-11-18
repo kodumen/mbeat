@@ -59,6 +59,8 @@ loadState.create = function () {
         'music',
         (Mbeat.KEY_HEIGHT / Mbeat.BEAT_GAP) + Mbeat.song_data.offset
     );
+
+    this.add.text(10, 0, 'PERFECT', {font: '24px Fjalla One', fill: '#ffffff', align: 'center'});
 };
 
 loadState.update = function () {
