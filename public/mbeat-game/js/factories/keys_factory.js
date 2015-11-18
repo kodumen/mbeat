@@ -96,12 +96,6 @@ Mbeat.factory.key = function (state, x, y, img0_key, img1_key, keycode, column) 
                 if (judgement) {
                     note.destroy();
                 }
-
-                //Mbeat.tap_sfx.play();
-                Mbeat.debug.note_y = note.y;
-                Mbeat.debug.y_diff = diff;
-
-                Mbeat.debug.judgement = judgement;
             }
         } else if (!game.input.keyboard.isDown(this.data.keycode)) {
             this.loadTexture(this.data.img0_key);

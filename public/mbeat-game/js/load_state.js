@@ -72,9 +72,5 @@ loadState.update = function () {
 };
 
 loadState.render = function () {
-    this.game.debug.text('FPS: ' + this.time.fps, 0, 16, '#ffffff');
-    this.game.debug.text('BPM: ' + Mbeat.curr_bpm, 0, 32, '#ffffff');
-    this.game.debug.text('NOTE_Y: ' + Mbeat.debug.note_y, 0, 48, '#ffffff');
-    this.game.debug.text('DIFF: ' + Mbeat.debug.y_diff, 0, 64, '#ffffff');
-    this.game.debug.text('JUDGEMENT: ' + Mbeat.debug.judgement, 0, 80, '#ffffff');
+
 };

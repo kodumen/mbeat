@@ -29,9 +29,6 @@ Mbeat.factory.bpmManager = function (state, bpm_queue) {
         }
 
         Mbeat.curr_bpm = this.queue[0].bpm;
-
-        Mbeat.debug.timer = this.timer;
-        Mbeat.debug.duration = this.queue[0].duration;
     };
 
     state.systems.push(system);
