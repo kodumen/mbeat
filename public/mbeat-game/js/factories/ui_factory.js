@@ -15,10 +15,17 @@ Mbeat.factory.ui = {};
  * @param size {Number}
  */
 Mbeat.factory.ui.judgment = function (state, x, y, anchor_x, anchor_y, font, size) {
-    var judgment = state.add.text(x, y, 'judgment', {font: size + 'px ' + font});
+    var judgment = state.add.text(x, y, '', {font: size + 'px ' + font});
     judgment.anchor.x = anchor_x;
     judgment.anchor.y = anchor_y;
-    judgment.addColor('#ffffff', 0);
+    judgment.fill = 'yellow';
+
+    judgment.update = function () {
+        if (Mbeat.player.is_judgment_changed) {
+            this.text = Mbeat.player.judgment;
+            Mbeat.player.is_judgment_changed = false;
+        }
+    };
 
     return judgment;
 };

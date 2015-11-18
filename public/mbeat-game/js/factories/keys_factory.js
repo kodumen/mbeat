@@ -94,7 +94,7 @@ Mbeat.factory.key = function (state, x, y, img0_key, img1_key, keycode, column) 
                 }
 
                 if (judgment) {
-                    Mbeat.player.judgment = judgment;
+                    Mbeat.player.setJudgment(judgment);
                     note.destroy();
                 }
             }

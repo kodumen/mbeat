@@ -34,7 +34,7 @@ loadState.create = function () {
         0.5,
         0.5,
         'Fjalla One',
-        24
+        34
     );
 
     // Create notes
