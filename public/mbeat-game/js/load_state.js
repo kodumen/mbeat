@@ -26,11 +26,21 @@ loadState.create = function () {
     // Create player object
     Mbeat.player = Mbeat.factory.player(0, '');
 
+    // Judgment
+    Mbeat.factory.ui.judgment(
+        this,
+        this.game.width / 2,
+        this.game.height / 2,
+        0.5,
+        0.5,
+        'Fjalla One',
+        24
+    );
+
     // Create notes
     var notes_data = Mbeat.song_data.notes_easy ||
         Mbeat.song_data.notes_medium ||
         Mbeat.song_data.notes_hard;
-
     Mbeat.notes = Mbeat.factory.notes(
         this,
         notes_data,
@@ -48,6 +58,7 @@ loadState.create = function () {
         Mbeat.controls
     );
     keys.x = (this.game.width / 2) - (keys.width / 2);
+
     keys.y = Mbeat.KEY_HEIGHT;
 
     // BPM Manager
@@ -59,8 +70,6 @@ loadState.create = function () {
         'music',
         (Mbeat.KEY_HEIGHT / Mbeat.BEAT_GAP) + Mbeat.song_data.offset
     );
-
-    this.add.text(10, 0, 'PERFECT', {font: '24px Fjalla One', fill: '#ffffff', align: 'center'});
 };
 
 loadState.update = function () {
