@@ -1,10 +1,11 @@
 /**
- * Create a player object but do not add it to the world or the systems
+ * Create a player object and add it to the systems
  *
- * @param score
- * @param judgment
+ * @param state {Phaser.State|Phaser.Game}
+ * @param score {Number}
+ * @param judgment {String}
  */
-Mbeat.factory.player = function (score, judgment) {
+Mbeat.factory.player = function (state, score, judgment) {
     var player = {};
 
     player.score = score;
@@ -21,5 +22,20 @@ Mbeat.factory.player = function (score, judgment) {
         this.is_judgment_changed = true;
     };
 
+    /**
+     * Runs in the update loop
+     */
+    player.update = function () {
+
+    };
+
+    /**
+     * Runs after the update loop
+     */
+    player.postUpdate = function () {
+        this.is_judgment_changed = false;
+    };
+
+    state.systems.push(player);
     return player;
 };

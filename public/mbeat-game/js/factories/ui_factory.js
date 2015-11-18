@@ -38,7 +38,6 @@ Mbeat.factory.ui.judgment = function (state, x, y, anchor_x, anchor_y, font, siz
         }
 
         this.text = Mbeat.player.judgment;
-        Mbeat.player.is_judgment_changed = false;
 
         switch (Mbeat.player.judgment) {
             case Mbeat.STR_BAD:

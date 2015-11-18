@@ -29,6 +29,10 @@ Mbeat.factory.music = function (state, music_key, delay) {
         }
     };
 
+    system.postUpdate = function () {
+
+    };
+
     state.systems.push (system);
     return system;
 };

@@ -24,7 +24,7 @@ loadState.create = function () {
     Mbeat.tap_sfx.allowMultiple= true;
 
     // Create player object
-    Mbeat.player = Mbeat.factory.player(0, '');
+    Mbeat.player = Mbeat.factory.player(this, 0, '');
 
     // Judgment
     Mbeat.factory.ui.judgment(
@@ -76,6 +76,11 @@ loadState.update = function () {
     var i = this.systems.length;
     while(i--) {
         this.systems[i].update();
+    }
+
+    i = this.systems.length;
+    while(i--) {
+        this.systems[i].postUpdate();
     }
 };
 
