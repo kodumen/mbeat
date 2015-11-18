@@ -12,7 +12,7 @@ Mbeat.factory.bpmManager = function (state, bpm_queue) {
     system.timer = 0;
 
     // Add that part where beat 0 must first align with the keys first
-    var init_duration = Mbeat.KEY_HEIGHT / Mbeat.BEAT_GAP;
+    var init_duration = (Mbeat.KEY_HEIGHT / Mbeat.BEAT_GAP)/* + Mbeat.BEAT_OFFSET*/;
     system.queue.unshift(
         {
             duration: init_duration,

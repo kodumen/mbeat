@@ -130,19 +130,19 @@ class SongFactory
                 }
 
                 // Change bpm
-                if ($curr_beat['number'] <= $curr_bpm[0]) {
+                while ($curr_beat['number'] <= $curr_bpm[0]) {
                     array_pop($bpms);
                     $curr_bpm = explode('=', $bpms[count($bpms) - 1]);
                 }
 
-                // An expensive process, sure, but it works so I'll keep it for now.
-                $time = self::getTotalTime($bpms, $curr_beat['number']);
+                $time = round(self::getTotalTime($bpms, $curr_beat['number']), 3);
 
                 array_unshift($mbeat, [
-                    'time' => $time - $song->offset,
+                    'time' => $time,
                     'notes' => $curr_beat['notes'],
                     'number' => $curr_beat['number'],
                 ]);
+
             }
         }
 
@@ -185,10 +185,10 @@ class SongFactory
 
         for ($i = 0; $i < $bpms_length; $i++) {
             list($curr_beat, $curr_bpm) = explode('=', $bpms[$i]);
-            $next_beat = $i == $bpms_length - 1 ? '' : explode('=', $bpms[$i + 1])[0];
+            $next_beat = $i == ($bpms_length - 1) ? '' : explode('=', $bpms[$i + 1])[0];
 
             $bpms_queue[] = [
-                'duration' => $next_beat ? ($next_beat - $curr_beat) * 60 /*sec*/ / $curr_bpm : '',
+                'duration' => $next_beat ? round(($next_beat - $curr_beat) * 60 /*sec*/ / $curr_bpm, 3) : '',
                 'bpm' => $curr_bpm,
             ];
         }

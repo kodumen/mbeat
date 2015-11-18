@@ -21,11 +21,10 @@ Mbeat.factory.music = function (state, music_key, delay) {
 
         if (this.timer >= this.offset && !this.hasPlayed) {
             this.music.mute = false;
+            this.music.volume = 0.05;
             this.music.play();
             this.hasPlayed = true;
         }
-
-        Mbeat.debug.music_timer = this.timer;
     };
 
     state.systems.push (system);
