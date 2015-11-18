@@ -51,6 +51,9 @@ Mbeat.factory.ui.judgment = function (state, x, y, anchor_x, anchor_y, font, siz
                 this.fill = Mbeat.COLOR_GREEN;
                 break;
             case Mbeat.STR_PERFECT:
+                this.fill = Mbeat.COLOR_ORANGE;
+                break;
+            case Mbeat.STR_FLAWLESS:
                 this.fill = Mbeat.COLOR_YELLOW;
                 break;
             case Mbeat.STR_MISS:
