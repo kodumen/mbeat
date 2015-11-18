@@ -54,14 +54,15 @@ Mbeat.factory.note = function (state, x, y, key, type, column) {
     note.data = {
         type: type,
         column: column,
-        isLogged: false
+        isMiss: false
     };
 
     note.update = function () {
         this.y += (Mbeat.BEAT_GAP * Mbeat.curr_bpm / 60 /* sec */) * (state.time.physicsElapsed);
 
-        if (this.y >= Mbeat.KEY_HEIGHT - (Mbeat.GOOD_LATE * (Mbeat.curr_bpm / Mbeat.BPM)) && !this.data.isLogged) {
+        if (this.y >= Mbeat.KEY_HEIGHT - (Mbeat.GOOD_LATE * (Mbeat.curr_bpm / Mbeat.BPM)) && !this.data.isMiss) {
             Mbeat.player.setJudgment(Mbeat.STR_MISS);
+            this.data.isMiss = true;
             // TODO: Change note appearance
         }
 

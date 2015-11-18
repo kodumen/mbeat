@@ -58,13 +58,14 @@ Mbeat.factory.key = function (state, x, y, img0_key, img1_key, keycode, column) 
 
             // Look for nearest note
             var note = null;
+            var speed = Mbeat.curr_bpm / Mbeat.BPM;
+            var diff = 0;
             for (var i = Mbeat.notes.children.length; i > 0 ; i--) {
                 note = Mbeat.notes.children[i - 1];
+                diff = Mbeat.KEY_HEIGHT - note.y;
 
-                var time_diff = note.data.time - Mbeat.curr_time;
-
-                if (time_diff > Mbeat.BAD) {
-                    return;
+                if (note.data.isMiss || diff > Mbeat.BAD * speed) {
+                    continue;
                 }
 
                 if (note.data.column == this.data.column) {
@@ -73,8 +74,6 @@ Mbeat.factory.key = function (state, x, y, img0_key, img1_key, keycode, column) 
             }
             // judge timing
             if (note) {
-                var diff = Mbeat.KEY_HEIGHT - note.y;
-                var speed = Mbeat.curr_bpm / Mbeat.BPM;
                 var judgment = '';
 
                 if (diff <= Mbeat.BAD * speed && diff > Mbeat.GOOD_EARLY * speed) {
