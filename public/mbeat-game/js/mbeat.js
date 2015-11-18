@@ -22,7 +22,6 @@ var Mbeat = {
     // VARIABLES
     song_data: {},
     factory: {},
-    curr_time: 0,   // used for timing judgement
     curr_bpm: 60,
     notes: null,
     controls: {
