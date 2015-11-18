@@ -10,7 +10,9 @@
  */
 Mbeat.factory.notes = function (state, notes_data, image_keys, note_gap, beat_gap) {
     var song_group = state.add.group();
+    var note3_buffer = [null, null, null, null];  // holds the latest type-3 notes in each column
 
+    // Start from the last note
     for (var i = notes_data.length; i > 0; i--) {
         var beat_data = notes_data[i - 1];
 
@@ -18,19 +20,27 @@ Mbeat.factory.notes = function (state, notes_data, image_keys, note_gap, beat_ga
             var note_type = beat_data.notes.charAt(c);
             var note_width = state.cache.getImage(image_keys[c]).width;
 
-            if (note_type == 1 || note_type == 2) {
-                song_group.add(
-                    Mbeat.factory.note(
-                        state,
-                        c * (note_width + note_gap),
-                        -beat_data.number * beat_gap,
-                        image_keys[c],
-                        1,
-                        c
-                    ),
-                    true
-                );
+            if (note_type == 0) {
+                continue;
             }
+
+            var note = Mbeat.factory.note(
+                state,
+                c * (note_width + note_gap),
+                -beat_data.number * beat_gap,
+                image_keys[c],
+                parseInt(note_type),
+                c
+            );
+
+            if (note_type == 3) {
+                note3_buffer[c] = note; // store for now
+            } else if (note_type == 2) {
+                // Set tail height
+                note3_buffer[c].height = note.y - note3_buffer[c].y;
+            }
+
+            song_group.add(note, true);
         }
     }
 
