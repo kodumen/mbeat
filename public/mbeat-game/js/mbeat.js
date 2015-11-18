@@ -7,13 +7,19 @@ var Mbeat = {
     BPM: 60,
 
     // JUDGEMENT (PIXELS)
-    MISS: 64,
+    BAD: 64,
     GOOD_EARLY: 16,
     GREAT_EARLY: 10,
     PERFECT_EARLY: 4,
     PERFECT_LATE: -4,
     GREAT_LATE:-10,
     GOOD_LATE: -16,
+
+    STR_BAD : 'BAD',
+    STR_GOOD : 'GOOD',
+    STR_GREAT : 'GREAT',
+    STR_PERFECT : 'PERFECT',
+    STR_MISS : 'MISS',
 
 
     // VARIABLES

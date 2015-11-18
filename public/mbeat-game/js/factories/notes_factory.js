@@ -60,8 +60,10 @@ Mbeat.factory.note = function (state, x, y, key, type, column) {
     note.update = function () {
         this.y += (Mbeat.BEAT_GAP * Mbeat.curr_bpm / 60 /* sec */) * (state.time.physicsElapsed);
 
-        //if (this.y >= Mbeat.KEY_HEIGHT - (Mbeat.GOOD_LATE * (Mbeat.curr_bpm / Mbeat.BPM)) && !this.data.isLogged) {
-        //}
+        if (this.y >= Mbeat.KEY_HEIGHT - (Mbeat.GOOD_LATE * (Mbeat.curr_bpm / Mbeat.BPM)) && !this.data.isLogged) {
+            Mbeat.player.judgement = Mbeat.STR_MISS;
+            // TODO: Change note appearance
+        }
 
         if (this.y > game.height) {
             this.destroy();

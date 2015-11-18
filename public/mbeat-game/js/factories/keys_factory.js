@@ -63,7 +63,7 @@ Mbeat.factory.key = function (state, x, y, img0_key, img1_key, keycode, column) 
 
                 var time_diff = note.data.time - Mbeat.curr_time;
 
-                if (time_diff > Mbeat.MISS) {
+                if (time_diff > Mbeat.BAD) {
                     return;
                 }
 
@@ -77,20 +77,20 @@ Mbeat.factory.key = function (state, x, y, img0_key, img1_key, keycode, column) 
                 var speed = Mbeat.curr_bpm / Mbeat.BPM;
                 var judgement = '';
 
-                if (diff <= Mbeat.MISS * speed && diff > Mbeat.GOOD_EARLY * speed) {
-                    judgement = 'MISS';
+                if (diff <= Mbeat.BAD * speed && diff > Mbeat.GOOD_EARLY * speed) {
+                    judgement = Mbeat.STR_BAD;
                 } else if (diff <= Mbeat.GOOD_EARLY * speed && diff > Mbeat.GREAT_EARLY * speed) {
-                    judgement = 'GOOD';
+                    judgement = Mbeat.STR_GOOD;
                 } else if (diff <= Mbeat.GREAT_EARLY * speed && diff > Mbeat.PERFECT_EARLY * speed) {
-                    judgement = 'GREAT';
+                    judgement = Mbeat.STR_GREAT;
                 } else if (diff <= Mbeat.PERFECT_EARLY * speed && diff > Mbeat.PERFECT_LATE * speed) {
-                    judgement = 'PERFECT';
+                    judgement = Mbeat.STR_PERFECT;
                 } else if (diff <= Mbeat.PERFECT_LATE * speed && diff > Mbeat.GREAT_LATE * speed) {
-                    judgement = 'GREAT';
+                    judgement = Mbeat.STR_GREAT;
                 } else if (diff <= Mbeat.GREAT_EARLY * speed && diff > Mbeat.GOOD_LATE * speed) {
-                    judgement = 'GOOD';
+                    judgement = Mbeat.STR_GOOD;
                 } else if (diff <= Mbeat.GOOD_LATE * speed) {
-                    judgement = 'MISS';
+                    judgement = Mbeat.STR_MISS;
                 }
 
                 if (judgement) {
