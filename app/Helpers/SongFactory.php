@@ -118,9 +118,7 @@ class SongFactory
         }
 
         // Convert to "mbeat-readable" format
-        // Starting from the last beat and last bpm, calculate the time of the beat
         $bpms = $song->bpms_raw;
-        $curr_bpm = explode('=', $bpms[count($bpms) - 1]);
         $mbeat = [];
 
         while ($curr_measure = array_pop($measures)) {
@@ -129,16 +127,7 @@ class SongFactory
                     continue;
                 }
 
-                // Change bpm
-                while ($curr_beat['number'] <= $curr_bpm[0]) {
-                    array_pop($bpms);
-                    $curr_bpm = explode('=', $bpms[count($bpms) - 1]);
-                }
-
-                $time = round(self::getTotalTime($bpms, $curr_beat['number']), 3);
-
                 array_unshift($mbeat, [
-                    'time' => $time,
                     'notes' => $curr_beat['notes'],
                     'number' => $curr_beat['number'],
                 ]);

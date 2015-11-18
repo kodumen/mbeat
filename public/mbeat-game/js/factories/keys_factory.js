@@ -56,14 +56,14 @@ Mbeat.factory.key = function (state, x, y, img0_key, img1_key, keycode, column) 
             this.loadTexture(this.data.img1_key);
             this.data.canPress = false;
 
-            var note = null;
             // Look for nearest note
+            var note = null;
             for (var i = Mbeat.notes.children.length; i > 0 ; i--) {
                 note = Mbeat.notes.children[i - 1];
 
                 var time_diff = note.data.time - Mbeat.curr_time;
 
-                if (time_diff > Mbeat.MISS_EARLY) {
+                if (time_diff > Mbeat.MISS) {
                     return;
                 }
 
@@ -96,12 +96,6 @@ Mbeat.factory.key = function (state, x, y, img0_key, img1_key, keycode, column) 
                 if (judgement) {
                     note.destroy();
                 }
-
-                //Mbeat.tap_sfx.play();
-                Mbeat.debug.note_y = note.y;
-                Mbeat.debug.y_diff = diff;
-
-                Mbeat.debug.judgement = judgement;
             }
         } else if (!game.input.keyboard.isDown(this.data.keycode)) {
             this.loadTexture(this.data.img0_key);
