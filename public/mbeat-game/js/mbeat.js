@@ -5,9 +5,6 @@ var Mbeat = {
     NOTE_GAP: 6, // px
     KEY_HEIGHT: 400, // px
     BPM: 60,
-    BEAT_OFFSET: -0.23, // arbitrary number to sync notes properly
-                    // negative value shifts the song earlier, positive shifts it later
-    TIME_OFFSET: 0.15,   // arbitrary number to time notes
 
     // JUDGEMENT (PIXELS)
     MISS: 64,
