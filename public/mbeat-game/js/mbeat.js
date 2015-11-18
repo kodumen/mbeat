@@ -7,13 +7,38 @@ var Mbeat = {
     BPM: 60,
 
     // JUDGEMENT (PIXELS)
-    MISS: 64,
+    BAD: 64,
     GOOD_EARLY: 16,
     GREAT_EARLY: 10,
-    PERFECT_EARLY: 4,
-    PERFECT_LATE: -4,
-    GREAT_LATE:-10,
-    GOOD_LATE: -16,
+    PERFECT_EARLY: 7,
+    FLAWLESS_EARLY: 4,
+    FLAWLESS_LATE: -2,
+    PERFECT_LATE: -4.5,
+    GREAT_LATE:-5,
+    GOOD_LATE: -8,
+
+    STR_BAD: 'BAD',
+    STR_GOOD: 'GOOD',
+    STR_GREAT: 'GREAT',
+    STR_PERFECT: 'PERFECT',
+    STR_FLAWLESS: 'FLAWLESS',
+    STR_MISS: 'MISS',
+
+    BAD_PNT: -50,
+    GOOD_PNT: 100,
+    GREAT_PNT: 200,
+    PERFECT_PNT: 500,
+    FLAWLESS_PNT: 1000,
+    MISS_PNT: 0,
+
+    COLOR_RED: '#FA0D4D',
+    COLOR_ORANGE: '#FA6929',
+    COLOR_YELLOW: '#FFD94C',
+    COLOR_GREEN: '#00E369',
+    COLOR_BLUE: '#4D9FF2',
+    COLOR_VIOLET: '#9532FA',
+    COLOR_WHITE: '#ffffff',
+    COLOR_BLACK: '#0d0d0d',
 
 
     // VARIABLES
@@ -21,6 +46,7 @@ var Mbeat = {
     factory: {},
     curr_bpm: 60,
     notes: null,
+    player: null,
     controls: {
         button_0: Phaser.KeyCode.D,
         button_1: Phaser.KeyCode.F,

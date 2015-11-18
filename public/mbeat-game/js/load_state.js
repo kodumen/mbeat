@@ -15,23 +15,32 @@ loadState.preload = function () {
 loadState.create = function () {
     // config
     this.game.antialias = false;
-    //this.time.advancedTiming = true;
 
     //this.add.image(0, 0, 'background');
-    //music = this.add.audio('music');
-    //music.mute = false;
-    //music.play();
 
     // SFX for debugging
     Mbeat.tap_sfx = this.add.audio('tap');
     Mbeat.tap_sfx.mute = false;
     Mbeat.tap_sfx.allowMultiple= true;
 
+    // Create player object
+    Mbeat.player = Mbeat.factory.player(this, 0, '');
+
+    // Judgment
+    Mbeat.factory.ui.judgment(
+        this,
+        this.game.width / 2,
+        this.game.height / 2,
+        0.5,
+        0.5,
+        'Fjalla One',
+        34
+    );
+
+    // Create notes
     var notes_data = Mbeat.song_data.notes_easy ||
         Mbeat.song_data.notes_medium ||
         Mbeat.song_data.notes_hard;
-
-    // Create notes
     Mbeat.notes = Mbeat.factory.notes(
         this,
         notes_data,
@@ -49,6 +58,7 @@ loadState.create = function () {
         Mbeat.controls
     );
     keys.x = (this.game.width / 2) - (keys.width / 2);
+
     keys.y = Mbeat.KEY_HEIGHT;
 
     // BPM Manager
@@ -61,13 +71,27 @@ loadState.create = function () {
         (Mbeat.KEY_HEIGHT / Mbeat.BEAT_GAP) + Mbeat.song_data.offset
     );
 
-    Mbeat.curr_time = -(Mbeat.KEY_HEIGHT / Mbeat.BEAT_GAP);
+    // Score
+    Mbeat.factory.ui.score(
+        this,
+        this.game.width / 2,
+        12,
+        0.5,
+        0,
+        'Fjalla One',
+        24
+    );
 };
 
 loadState.update = function () {
     var i = this.systems.length;
     while(i--) {
         this.systems[i].update();
+    }
+
+    i = this.systems.length;
+    while(i--) {
+        this.systems[i].postUpdate();
     }
 };
 

@@ -3,15 +3,19 @@
 <head>
     <meta charset="UTF-8">
     <title>Play</title>
+
 </head>
 <body>
+<script src="https://ajax.googleapis.com/ajax/libs/webfont/1.5.18/webfont.js"></script>
+<script src="{{asset('/mbeat-game/js/webfont.js')}}"></script>
 <script src="{{asset('/mbeat-game/js/phaser.js')}}"></script>
 <script src="{{asset('/mbeat-game/js/mbeat.js')}}"></script>
 <script src="{{asset('/mbeat-game/js/factories/notes_factory.js')}}"></script>
 <script src="{{asset('/mbeat-game/js/factories/keys_factory.js')}}"></script>
 <script src="{{asset('/mbeat-game/js/factories/music_factory.js')}}"></script>
 <script src="{{asset('/mbeat-game/js/factories/bpm_manager_factory.js')}}"></script>
-<script src="{{asset('/mbeat-game/js/behaviors/KeyBehavior.js')}}"></script>
+<script src="{{asset('/mbeat-game/js/factories/player_factory.js')}}"></script>
+<script src="{{asset('/mbeat-game/js/factories/ui_factory.js')}}"></script>
 <script src="{{asset('/mbeat-game/js/load_state.js')}}"></script>
 <script src="{{asset('/mbeat-game/js/main.js')}}"></script>
 <script>

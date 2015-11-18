@@ -31,6 +31,10 @@ Mbeat.factory.bpmManager = function (state, bpm_queue) {
         Mbeat.curr_bpm = this.queue[0].bpm;
     };
 
+    system.postUpdate = function () {
+
+    };
+
     state.systems.push(system);
     return system;
 };

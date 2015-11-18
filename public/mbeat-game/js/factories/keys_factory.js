@@ -58,13 +58,14 @@ Mbeat.factory.key = function (state, x, y, img0_key, img1_key, keycode, column) 
 
             // Look for nearest note
             var note = null;
+            var speed = Mbeat.curr_bpm / Mbeat.BPM;
+            var diff = 0;
             for (var i = Mbeat.notes.children.length; i > 0 ; i--) {
                 note = Mbeat.notes.children[i - 1];
+                diff = Mbeat.KEY_HEIGHT - note.y;
 
-                var time_diff = note.data.time - Mbeat.curr_time;
-
-                if (time_diff > Mbeat.MISS) {
-                    return;
+                if (note.data.isMiss || diff > Mbeat.BAD * speed) {
+                    continue;
                 }
 
                 if (note.data.column == this.data.column) {
@@ -73,27 +74,38 @@ Mbeat.factory.key = function (state, x, y, img0_key, img1_key, keycode, column) 
             }
             // judge timing
             if (note) {
-                var diff = Mbeat.KEY_HEIGHT - note.y;
-                var speed = Mbeat.curr_bpm / Mbeat.BPM;
-                var judgement = '';
+                var judgment = '';
+                var points = 0;
 
-                if (diff <= Mbeat.MISS * speed && diff > Mbeat.GOOD_EARLY * speed) {
-                    judgement = 'MISS';
+                if (diff <= Mbeat.BAD * speed && diff > Mbeat.GOOD_EARLY * speed) {
+                    judgment = Mbeat.STR_BAD;
+                    points = Mbeat.BAD_PNT;
                 } else if (diff <= Mbeat.GOOD_EARLY * speed && diff > Mbeat.GREAT_EARLY * speed) {
-                    judgement = 'GOOD';
+                    judgment = Mbeat.STR_GOOD;
+                    points = Mbeat.GOOD_PNT;
                 } else if (diff <= Mbeat.GREAT_EARLY * speed && diff > Mbeat.PERFECT_EARLY * speed) {
-                    judgement = 'GREAT';
-                } else if (diff <= Mbeat.PERFECT_EARLY * speed && diff > Mbeat.PERFECT_LATE * speed) {
-                    judgement = 'PERFECT';
+                    judgment = Mbeat.STR_GREAT;
+                    points = Mbeat.GREAT_PNT;
+                } else if (diff <= Mbeat.PERFECT_EARLY * speed && diff > Mbeat.FLAWLESS_EARLY * speed) {
+                    judgment = Mbeat.STR_PERFECT;
+                    points = Mbeat.PERFECT_PNT;
+                } else if (diff <= Mbeat.FLAWLESS_EARLY * speed && diff > Mbeat.FLAWLESS_LATE * speed) {
+                    judgment = Mbeat.STR_FLAWLESS;
+                    points = Mbeat.FLAWLESS_PNT;
+                } else if (diff <= Mbeat.FLAWLESS_LATE * speed && diff > Mbeat.PERFECT_LATE * speed) {
+                    judgment = Mbeat.STR_PERFECT;
+                    points = Mbeat.PERFECT_PNT;
                 } else if (diff <= Mbeat.PERFECT_LATE * speed && diff > Mbeat.GREAT_LATE * speed) {
-                    judgement = 'GREAT';
+                    judgment = Mbeat.STR_GREAT;
+                    points = Mbeat.GREAT_PNT;
                 } else if (diff <= Mbeat.GREAT_EARLY * speed && diff > Mbeat.GOOD_LATE * speed) {
-                    judgement = 'GOOD';
-                } else if (diff <= Mbeat.GOOD_LATE * speed) {
-                    judgement = 'MISS';
+                    judgment = Mbeat.STR_GOOD;
+                    points = Mbeat.GOOD_PNT;
                 }
 
-                if (judgement) {
+                if (judgment) {
+                    Mbeat.player.setJudgment(judgment);
+                    Mbeat.player.score += points;
                     note.destroy();
                 }
             }
