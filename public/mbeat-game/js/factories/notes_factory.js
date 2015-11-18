@@ -36,8 +36,9 @@ Mbeat.factory.notes = function (state, notes_data, image_keys, note_gap, beat_ga
             if (note_type == 3) {
                 note3_buffer[c] = note; // store for now
             } else if (note_type == 2) {
-                // Set tail height
+                // Set tail
                 note3_buffer[c].height = note.y - note3_buffer[c].y;
+                note.data.tail = note3_buffer[c];
             }
 
             song_group.add(note, true);
@@ -64,16 +65,33 @@ Mbeat.factory.note = function (state, x, y, key, type, column) {
     note.data = {
         type: type,
         column: column,
-        isMiss: false
+        is_miss: false,
+        tail: null, // must be set for type-2 notes, blank otherwise
+        is_head_pressed: false // true if type-2 head is pressed
     };
 
     note.update = function () {
         this.y += (Mbeat.BEAT_GAP * Mbeat.curr_bpm / 60 /* sec */) * (state.time.physicsElapsed);
 
-        if (this.y >= Mbeat.KEY_HEIGHT - (Mbeat.GOOD_LATE * (Mbeat.curr_bpm / Mbeat.BPM)) && !this.data.isMiss) {
+        if (this.data.is_head_pressed) {
+            this.height = Mbeat.KEY_HEIGHT - this.y;
+            // Prevent the height becoming negative resulting for the
+            // note to get longer as it moves further from the key
+            if (this.y > Mbeat.KEY_HEIGHT) {
+                this.destroy();
+            }
+        }
+
+        if (this.y >= Mbeat.KEY_HEIGHT - (Mbeat.GOOD_LATE * (Mbeat.curr_bpm / Mbeat.BPM)) && !this.data.is_miss) {
             Mbeat.player.setJudgment(Mbeat.STR_MISS);
             Mbeat.player.score += Mbeat.MISS_PNT;
-            this.data.isMiss = true;
+            this.data.is_miss = true;
+
+            if (this.data.type == 2) {
+                this.data.tail.is_miss = true;
+                // TODO: change tail appearance
+            }
+
             // TODO: Change note appearance
         }
 

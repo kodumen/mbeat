@@ -64,7 +64,7 @@ Mbeat.factory.key = function (state, x, y, img0_key, img1_key, keycode, column) 
                 note = Mbeat.notes.children[i - 1];
                 diff = Mbeat.KEY_HEIGHT - note.y;
 
-                if (note.data.isMiss || diff > Mbeat.BAD * speed) {
+                if (note.data.is_miss || diff > Mbeat.BAD * speed) {
                     continue;
                 }
 
@@ -72,8 +72,13 @@ Mbeat.factory.key = function (state, x, y, img0_key, img1_key, keycode, column) 
                     break;
                 }
             }
+
+            if (!note) {
+                return;
+            }
+
             // judge timing
-            if (note) {
+            if (note.data.type == 1 || note.data.type == 2) {
                 var judgment = '';
                 var points = 0;
 
@@ -101,6 +106,10 @@ Mbeat.factory.key = function (state, x, y, img0_key, img1_key, keycode, column) 
                 } else if (diff <= Mbeat.GREAT_EARLY * speed && diff > Mbeat.GOOD_LATE * speed) {
                     judgment = Mbeat.STR_GOOD;
                     points = Mbeat.GOOD_PNT;
+                }
+
+                if (note.data.type == 2 && judgment != Mbeat.BAD) {
+                    note.data.tail.data.is_head_pressed = true;
                 }
 
                 if (judgment) {
