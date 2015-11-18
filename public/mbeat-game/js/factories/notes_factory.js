@@ -62,6 +62,7 @@ Mbeat.factory.note = function (state, x, y, key, type, column) {
 
         if (this.y >= Mbeat.KEY_HEIGHT - (Mbeat.GOOD_LATE * (Mbeat.curr_bpm / Mbeat.BPM)) && !this.data.isMiss) {
             Mbeat.player.setJudgment(Mbeat.STR_MISS);
+            Mbeat.player.score += Mbeat.MISS_PNT;
             this.data.isMiss = true;
             // TODO: Change note appearance
         }

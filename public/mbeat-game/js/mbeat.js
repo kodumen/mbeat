@@ -24,6 +24,13 @@ var Mbeat = {
     STR_FLAWLESS: 'FLAWLESS',
     STR_MISS: 'MISS',
 
+    BAD_PNT: -50,
+    GOOD_PNT: 100,
+    GREAT_PNT: 200,
+    PERFECT_PNT: 500,
+    FLAWLESS_PNT: 1000,
+    MISS_PNT: 0,
+
     COLOR_RED: '#FA0D4D',
     COLOR_ORANGE: '#FA6929',
     COLOR_YELLOW: '#FFD94C',

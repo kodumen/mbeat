@@ -75,29 +75,37 @@ Mbeat.factory.key = function (state, x, y, img0_key, img1_key, keycode, column) 
             // judge timing
             if (note) {
                 var judgment = '';
+                var points = 0;
 
                 if (diff <= Mbeat.BAD * speed && diff > Mbeat.GOOD_EARLY * speed) {
                     judgment = Mbeat.STR_BAD;
+                    points = Mbeat.BAD_PNT;
                 } else if (diff <= Mbeat.GOOD_EARLY * speed && diff > Mbeat.GREAT_EARLY * speed) {
                     judgment = Mbeat.STR_GOOD;
+                    points = Mbeat.GOOD_PNT;
                 } else if (diff <= Mbeat.GREAT_EARLY * speed && diff > Mbeat.PERFECT_EARLY * speed) {
                     judgment = Mbeat.STR_GREAT;
+                    points = Mbeat.GREAT_PNT;
                 } else if (diff <= Mbeat.PERFECT_EARLY * speed && diff > Mbeat.FLAWLESS_EARLY * speed) {
                     judgment = Mbeat.STR_PERFECT;
+                    points = Mbeat.PERFECT_PNT;
                 } else if (diff <= Mbeat.FLAWLESS_EARLY * speed && diff > Mbeat.FLAWLESS_LATE * speed) {
                     judgment = Mbeat.STR_FLAWLESS;
+                    points = Mbeat.FLAWLESS_PNT;
                 } else if (diff <= Mbeat.FLAWLESS_LATE * speed && diff > Mbeat.PERFECT_LATE * speed) {
                     judgment = Mbeat.STR_PERFECT;
+                    points = Mbeat.PERFECT_PNT;
                 } else if (diff <= Mbeat.PERFECT_LATE * speed && diff > Mbeat.GREAT_LATE * speed) {
                     judgment = Mbeat.STR_GREAT;
+                    points = Mbeat.GREAT_PNT;
                 } else if (diff <= Mbeat.GREAT_EARLY * speed && diff > Mbeat.GOOD_LATE * speed) {
                     judgment = Mbeat.STR_GOOD;
-                } else if (diff <= Mbeat.GOOD_LATE * speed) {
-                    judgment = Mbeat.STR_MISS;
+                    points = Mbeat.GOOD_PNT;
                 }
 
                 if (judgment) {
                     Mbeat.player.setJudgment(judgment);
+                    Mbeat.player.score += points;
                     note.destroy();
                 }
             }
