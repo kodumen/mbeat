@@ -65,18 +65,16 @@ loadState.create = function () {
 };
 
 loadState.update = function () {
-
     var i = this.systems.length;
     while(i--) {
         this.systems[i].update();
     }
 };
+
 loadState.render = function () {
     this.game.debug.text('FPS: ' + this.time.fps, 0, 16, '#ffffff');
     this.game.debug.text('BPM: ' + Mbeat.curr_bpm, 0, 32, '#ffffff');
-    this.game.debug.text('DURATION: ' + Mbeat.debug.duration, 0, 48, '#ffffff');
-    this.game.debug.text('TIME: ' + Mbeat.curr_time, 0, 64, '#ffffff');
-    this.game.debug.text('NOTE_Y: ' + Mbeat.debug.note_y, 0, 80, '#ffffff');
-    this.game.debug.text('DIFF: ' + Mbeat.debug.y_diff, 0, 96, '#ffffff');
-    this.game.debug.text('JUDGEMENT: ' + Mbeat.debug.judgement, 0, 112, '#ffffff');
+    this.game.debug.text('NOTE_Y: ' + Mbeat.debug.note_y, 0, 48, '#ffffff');
+    this.game.debug.text('DIFF: ' + Mbeat.debug.y_diff, 0, 64, '#ffffff');
+    this.game.debug.text('JUDGEMENT: ' + Mbeat.debug.judgement, 0, 80, '#ffffff');
 };
