@@ -15,12 +15,8 @@ loadState.preload = function () {
 loadState.create = function () {
     // config
     this.game.antialias = false;
-    //this.time.advancedTiming = true;
 
     //this.add.image(0, 0, 'background');
-    //music = this.add.audio('music');
-    //music.mute = false;
-    //music.play();
 
     // SFX for debugging
     Mbeat.tap_sfx = this.add.audio('tap');
@@ -60,8 +56,6 @@ loadState.create = function () {
         'music',
         (Mbeat.KEY_HEIGHT / Mbeat.BEAT_GAP) + Mbeat.song_data.offset
     );
-
-    Mbeat.curr_time = -(Mbeat.KEY_HEIGHT / Mbeat.BEAT_GAP);
 };
 
 loadState.update = function () {
