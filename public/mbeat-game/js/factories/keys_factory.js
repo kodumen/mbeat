@@ -75,25 +75,26 @@ Mbeat.factory.key = function (state, x, y, img0_key, img1_key, keycode, column) 
             if (note) {
                 var diff = Mbeat.KEY_HEIGHT - note.y;
                 var speed = Mbeat.curr_bpm / Mbeat.BPM;
-                var judgement = '';
+                var judgment = '';
 
                 if (diff <= Mbeat.BAD * speed && diff > Mbeat.GOOD_EARLY * speed) {
-                    judgement = Mbeat.STR_BAD;
+                    judgment = Mbeat.STR_BAD;
                 } else if (diff <= Mbeat.GOOD_EARLY * speed && diff > Mbeat.GREAT_EARLY * speed) {
-                    judgement = Mbeat.STR_GOOD;
+                    judgment = Mbeat.STR_GOOD;
                 } else if (diff <= Mbeat.GREAT_EARLY * speed && diff > Mbeat.PERFECT_EARLY * speed) {
-                    judgement = Mbeat.STR_GREAT;
+                    judgment = Mbeat.STR_GREAT;
                 } else if (diff <= Mbeat.PERFECT_EARLY * speed && diff > Mbeat.PERFECT_LATE * speed) {
-                    judgement = Mbeat.STR_PERFECT;
+                    judgment = Mbeat.STR_PERFECT;
                 } else if (diff <= Mbeat.PERFECT_LATE * speed && diff > Mbeat.GREAT_LATE * speed) {
-                    judgement = Mbeat.STR_GREAT;
+                    judgment = Mbeat.STR_GREAT;
                 } else if (diff <= Mbeat.GREAT_EARLY * speed && diff > Mbeat.GOOD_LATE * speed) {
-                    judgement = Mbeat.STR_GOOD;
+                    judgment = Mbeat.STR_GOOD;
                 } else if (diff <= Mbeat.GOOD_LATE * speed) {
-                    judgement = Mbeat.STR_MISS;
+                    judgment = Mbeat.STR_MISS;
                 }
 
-                if (judgement) {
+                if (judgment) {
+                    Mbeat.player.judgment = judgment;
                     note.destroy();
                 }
             }

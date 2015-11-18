@@ -11,6 +11,7 @@
 <script src="{{asset('/mbeat-game/js/factories/keys_factory.js')}}"></script>
 <script src="{{asset('/mbeat-game/js/factories/music_factory.js')}}"></script>
 <script src="{{asset('/mbeat-game/js/factories/bpm_manager_factory.js')}}"></script>
+<script src="{{asset('/mbeat-game/js/factories/player_factory.js')}}"></script>
 <script src="{{asset('/mbeat-game/js/behaviors/KeyBehavior.js')}}"></script>
 <script src="{{asset('/mbeat-game/js/load_state.js')}}"></script>
 <script src="{{asset('/mbeat-game/js/main.js')}}"></script>

@@ -27,10 +27,7 @@ var Mbeat = {
     factory: {},
     curr_bpm: 60,
     notes: null,
-    player: {
-        score: 0,
-        judgement: ''
-    },
+    player: null,
     controls: {
         button_0: Phaser.KeyCode.D,
         button_1: Phaser.KeyCode.F,

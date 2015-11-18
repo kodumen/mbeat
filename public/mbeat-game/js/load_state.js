@@ -23,11 +23,14 @@ loadState.create = function () {
     Mbeat.tap_sfx.mute = false;
     Mbeat.tap_sfx.allowMultiple= true;
 
+    // Create player object
+    Mbeat.player = Mbeat.factory.player(0, '');
+
+    // Create notes
     var notes_data = Mbeat.song_data.notes_easy ||
         Mbeat.song_data.notes_medium ||
         Mbeat.song_data.notes_hard;
 
-    // Create notes
     Mbeat.notes = Mbeat.factory.notes(
         this,
         notes_data,
