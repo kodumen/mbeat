@@ -76,13 +76,12 @@ Mbeat.factory.note = function (state, x, y, key, type, column) {
             Mbeat.player.setJudgment(Mbeat.STR_MISS);
             Mbeat.player.score += Mbeat.MISS_PNT;
             this.data.is_miss = true;
+            this.alpha = 0.5;
 
             if (this.data.type == 2) {
                 this.data.tail.is_miss = true;
-                // TODO: change tail appearance
+                this.alpha = 0.5;
             }
-
-            // TODO: Change note appearance
         }
 
         if (this.y > game.height) {
