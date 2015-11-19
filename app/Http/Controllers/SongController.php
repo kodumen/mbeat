@@ -46,6 +46,6 @@ class SongController extends Controller
     {
         $songs = Song::getAllTitles();
 
-        return response()->json($songs);
+        return view('song.index', ['songs' => $songs]);
     }
 }
