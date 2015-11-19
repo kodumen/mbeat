@@ -49,16 +49,25 @@ Mbeat.factory.key = function (state, x, y, img0_key, img1_key, keycode, column) 
         keycode: keycode,
         column: column,
         canPress: true,
-        note_held: null // type-3 note currently being held
+        note_held: null, // type-3 note currently being held
+        hold_timer: 0
     };
 
     key.update = function () {
         if (!game.input.keyboard.isDown(this.data.keycode)) {
             this.loadTexture(this.data.img0_key);
             this.data.canPress = true;
+            this.data.hold_timer = 0;
         } else if (this.data.note_held) {
             this.data.canPress = false;
+            this.data.hold_timer += game.time.physicsElapsed;
             this.data.note_held.height = Mbeat.KEY_HEIGHT - this.data.note_held.y;
+
+            if (this.data.hold_timer >= Mbeat.HOLD_INTERVAL) {
+                Mbeat.player.score += Mbeat.HOLD_PNT;
+                this.data.hold_timer = 0;
+            }
+
             // Prevent the height becoming negative resulting for the
             // note to get longer as it moves further from the key
             if (this.data.note_held.y > Mbeat.KEY_HEIGHT) {
