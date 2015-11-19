@@ -1,11 +1,11 @@
-<!doctype html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>Play</title>
-
-</head>
-<body>
+@extends('master')
+@section('section')
+    play | {{$song->title_translit ? $song->title_translit : $song->title}}
+@endsection
+@section('content')
+    <div class="game" id="game"></div>
+    <p>If you think the notes does not match with the music, refresh the page
+        and pray that it will become in sync.</p>
 <script src="https://ajax.googleapis.com/ajax/libs/webfont/1.5.18/webfont.js"></script>
 <script src="{{asset('/mbeat-game/js/webfont.js')}}"></script>
 <script src="{{asset('/mbeat-game/js/phaser.js')}}"></script>
@@ -38,5 +38,4 @@
 
     request.send();
 </script>
-</body>
-</html>
+@endsection
