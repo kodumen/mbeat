@@ -4,8 +4,8 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "hash": "fdb7f61380c0038e148c60033717b82e",
-    "content-hash": "6fe6aa93fbb68bf166a5987843f4d6e1",
+    "hash": "5c6026b96e6fa11a641b51a6ba976f5e",
+    "content-hash": "5bd58fd976f1ee3e9611bc37c006ec46",
     "packages": [
         {
             "name": "classpreloader/classpreloader",
@@ -1739,42 +1739,6 @@
                 "environment"
             ],
             "time": "2015-05-30 15:59:26"
-        },
-        {
-            "name": "zanson/sm-parser",
-            "version": "v1.2",
-            "source": {
-                "type": "git",
-                "url": "https://github.com/jasonwatt/SMParser.git",
-                "reference": "3ef178e6ed36213e29f38879f0627049d71268fa"
-            },
-            "dist": {
-                "type": "zip",
-                "url": "https://api.github.com/repos/jasonwatt/SMParser/zipball/3ef178e6ed36213e29f38879f0627049d71268fa",
-                "reference": "3ef178e6ed36213e29f38879f0627049d71268fa",
-                "shasum": ""
-            },
-            "require": {
-                "php": ">5.4"
-            },
-            "type": "library",
-            "autoload": {
-                "psr-4": {
-                    "Zanson\\SMParser\\": "src/"
-                }
-            },
-            "notification-url": "https://packagist.org/downloads/",
-            "license": [
-                "MIT"
-            ],
-            "authors": [
-                {
-                    "name": "Jason Watt",
-                    "email": "zanson8@gmail.com"
-                }
-            ],
-            "description": "a model and parser for stepmania files (.sm)",
-            "time": "2015-08-29 07:16:11"
         }
     ],
     "packages-dev": [
