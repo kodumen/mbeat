@@ -17,6 +17,7 @@
 <script src="{{asset('/mbeat-game/js/factories/player_factory.js')}}"></script>
 <script src="{{asset('/mbeat-game/js/factories/ui_factory.js')}}"></script>
 <script src="{{asset('/mbeat-game/js/play_state.js')}}"></script>
+<script src="{{asset('/mbeat-game/js/game_over_state.js')}}"></script>
 <script src="{{asset('/mbeat-game/js/main.js')}}"></script>
 <script>
     var request = new XMLHttpRequest();
