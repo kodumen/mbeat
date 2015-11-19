@@ -35,4 +35,11 @@ class SongController extends Controller
 
         return redirect()->back();
     }
+
+    public function listAll()
+    {
+        $songs = Song::getAllTitles();
+
+        return response()->json($songs);
+    }
 }

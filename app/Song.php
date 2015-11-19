@@ -33,6 +33,20 @@ class Song extends Model
             ->first();
     }
 
+    /**
+     * Return all the titles and translation of songs in the db
+     * @return mixed
+     */
+    public static function getAllTitles()
+    {
+        // Assume that songs are weaboo songs. Titles are in japanese and translated
+        // to english
+        return self::select('title', 'title_translit')
+            ->orderBy('title_translit')
+            ->orderBy('title')
+            ->get();
+    }
+
     // SETTERS
 
     public function setNotesEasyAttribute($value)

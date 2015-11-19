@@ -11,9 +11,7 @@
 |
 */
 
-Route::get('/', function () {
-    return view('welcome');
-});
+Route::get('/', 'SongController@listAll');
 
 Route::get('/play/{song}/{difficulty}', 'GameController@play')
     ->where('song', '[[:digit:]]+')
