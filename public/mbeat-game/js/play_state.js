@@ -19,9 +19,9 @@ playState.create = function () {
         .alpha = 0.5;
 
     // SFX for debugging
-    Mbeat.tap_sfx = this.add.audio('tap');
-    Mbeat.tap_sfx.mute = false;
-    Mbeat.tap_sfx.allowMultiple= true;
+    //Mbeat.tap_sfx = this.add.audio('tap');
+    //Mbeat.tap_sfx.mute = false;
+    //Mbeat.tap_sfx.allowMultiple= true;
 
     // Create player object
     Mbeat.player = Mbeat.factory.player(this, 0, '');
