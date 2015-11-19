@@ -4,11 +4,12 @@
  * @param state {Phaser.State}
  * @param notes_data {Array}
  * @param image_keys {Array}
+ * @param tail_keys {Array}
  * @param note_gap {Number}
  * @param beat_gap {Number}
  * @returns {*|Phaser.Group}
  */
-Mbeat.factory.notes = function (state, notes_data, image_keys, note_gap, beat_gap) {
+Mbeat.factory.notes = function (state, notes_data, image_keys, tail_keys, note_gap, beat_gap) {
     var song_group = state.add.group();
     var note3_buffer = [null, null, null, null];  // holds the latest type-3 notes in each column
 
@@ -28,7 +29,7 @@ Mbeat.factory.notes = function (state, notes_data, image_keys, note_gap, beat_ga
                 state,
                 c * (note_width + note_gap),
                 -beat_data.number * beat_gap,
-                image_keys[c],
+                note_type == 3 ? tail_keys[c] : image_keys[c],
                 parseInt(note_type),
                 c
             );

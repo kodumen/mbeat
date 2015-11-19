@@ -10,6 +10,8 @@ loadState.preload = function () {
     this.load.image('blue_brick', '/mbeat-game/img/blue_brick.png');
     this.load.image('white_brick', '/mbeat-game/img/white_brick.png');
     this.load.image('yellow_brick', '/mbeat-game/img/yellow_brick.png');
+    this.load.image('red_tail', '/mbeat-game/img/red_tail.png');
+    this.load.image('blue_tail', '/mbeat-game/img/blue_tail.png');
 };
 
 loadState.create = function () {
@@ -46,6 +48,7 @@ loadState.create = function () {
         this,
         notes_data,
         ['red_brick', 'blue_brick', 'red_brick', 'blue_brick'],
+        ['red_tail', 'blue_tail', 'red_tail', 'blue_tail'],
         Mbeat.NOTE_GAP,
         Mbeat.BEAT_GAP
     );
