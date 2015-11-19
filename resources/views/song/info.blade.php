@@ -1,6 +1,6 @@
 @extends('master')
 @section('section')
-    Info | {{$song->title_translit ? $song->title_translit : $song->title}}
+    info | {{$song->title_translit ? $song->title_translit : $song->title}}
 @endsection
 @section('content')
     <h2>{{$song->title_translit ? $song->title_translit : $song->title}}</h2>
