@@ -3,20 +3,23 @@ var loadState = new Phaser.State();
 loadState.systems = [];
 
 loadState.preload = function () {
-    //this.load.image('background', '/img?src='+ song_data.background);
+    this.load.image('background', '/img?src='+ Mbeat.song_data.background);
     this.load.audio('music', Mbeat.song_data.music);
     this.load.audio('tap', '/mbeat-game/switch26.wav');
     this.load.image('red_brick', '/mbeat-game/img/red_brick.png');
     this.load.image('blue_brick', '/mbeat-game/img/blue_brick.png');
     this.load.image('white_brick', '/mbeat-game/img/white_brick.png');
     this.load.image('yellow_brick', '/mbeat-game/img/yellow_brick.png');
+    this.load.image('red_tail', '/mbeat-game/img/red_tail.png');
+    this.load.image('blue_tail', '/mbeat-game/img/blue_tail.png');
 };
 
 loadState.create = function () {
     // config
     this.game.antialias = false;
 
-    //this.add.image(0, 0, 'background');
+    this.add.image(0, 0, 'background')
+        .alpha = 0.5;
 
     // SFX for debugging
     Mbeat.tap_sfx = this.add.audio('tap');
@@ -45,6 +48,7 @@ loadState.create = function () {
         this,
         notes_data,
         ['red_brick', 'blue_brick', 'red_brick', 'blue_brick'],
+        ['red_tail', 'blue_tail', 'red_tail', 'blue_tail'],
         Mbeat.NOTE_GAP,
         Mbeat.BEAT_GAP
     );
