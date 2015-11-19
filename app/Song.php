@@ -3,6 +3,7 @@
 namespace App;
 
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Support\Facades\DB;
 
 class Song extends Model
 {
@@ -45,6 +46,27 @@ class Song extends Model
             ->orderBy('title_translit')
             ->orderBy('title')
             ->get();
+    }
+
+    /**
+     * Retrieve basic song info
+     *
+     * @param $id
+     * @return mixed
+     */
+    public static function getInfo($id)
+    {
+        // TODO: include difficulty info
+        return self::where('id', $id)
+            ->select(
+                'id',
+                'title',
+                'title_translit',
+                'artist',
+                'credit',
+                'background'
+            )
+            ->first();
     }
 
     // SETTERS

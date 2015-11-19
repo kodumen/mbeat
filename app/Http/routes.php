@@ -13,6 +13,8 @@
 
 Route::get('/', 'SongController@listAll');
 
+Route::get('/song/info/{id}', 'SongController@info');
+
 Route::get('/play/{song}/{difficulty}', 'GameController@play')
     ->where('song', '[[:digit:]]+')
     ->where('difficulty', '(easy)|(medium)|(hard)');
