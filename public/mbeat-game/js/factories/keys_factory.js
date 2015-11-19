@@ -48,11 +48,24 @@ Mbeat.factory.key = function (state, x, y, img0_key, img1_key, keycode, column) 
         img1_key: img1_key,
         keycode: keycode,
         column: column,
-        canPress: true
+        canPress: true,
+        note_held: null // type-3 note currently being held
     };
 
     key.update = function () {
-        if (game.input.keyboard.isDown(this.data.keycode) && this.data.canPress) {
+        if (!game.input.keyboard.isDown(this.data.keycode)) {
+            this.loadTexture(this.data.img0_key);
+            this.data.canPress = true;
+        } else if (this.data.note_held) {
+            this.data.canPress = false;
+            this.data.note_held.height = Mbeat.KEY_HEIGHT - this.data.note_held.y;
+            // Prevent the height becoming negative resulting for the
+            // note to get longer as it moves further from the key
+            if (this.data.note_held.y > Mbeat.KEY_HEIGHT) {
+                this.data.note_held.destroy();
+                this.data.note_held = null;
+            }
+        } else if (this.data.canPress) {
             this.loadTexture(this.data.img1_key);
             this.data.canPress = false;
 
@@ -110,6 +123,7 @@ Mbeat.factory.key = function (state, x, y, img0_key, img1_key, keycode, column) 
 
                 if (note.data.type == 2 && judgment != Mbeat.BAD) {
                     note.data.tail.data.is_head_pressed = true;
+                    this.data.note_held = note.data.tail;
                 }
 
                 if (judgment) {
@@ -118,9 +132,6 @@ Mbeat.factory.key = function (state, x, y, img0_key, img1_key, keycode, column) 
                     note.destroy();
                 }
             }
-        } else if (!game.input.keyboard.isDown(this.data.keycode)) {
-            this.loadTexture(this.data.img0_key);
-            this.data.canPress = true;
         }
     };
 

@@ -66,21 +66,11 @@ Mbeat.factory.note = function (state, x, y, key, type, column) {
         type: type,
         column: column,
         is_miss: false,
-        tail: null, // must be set for type-2 notes, blank otherwise
-        is_head_pressed: false // true if type-2 head is pressed
+        tail: null // must be set for type-2 notes, null otherwise
     };
 
     note.update = function () {
         this.y += (Mbeat.BEAT_GAP * Mbeat.curr_bpm / 60 /* sec */) * (state.time.physicsElapsed);
-
-        if (this.data.is_head_pressed) {
-            this.height = Mbeat.KEY_HEIGHT - this.y;
-            // Prevent the height becoming negative resulting for the
-            // note to get longer as it moves further from the key
-            if (this.y > Mbeat.KEY_HEIGHT) {
-                this.destroy();
-            }
-        }
 
         if (this.y >= Mbeat.KEY_HEIGHT - (Mbeat.GOOD_LATE * (Mbeat.curr_bpm / Mbeat.BPM)) && !this.data.is_miss) {
             Mbeat.player.setJudgment(Mbeat.STR_MISS);
