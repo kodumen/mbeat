@@ -42,10 +42,26 @@ class SongController extends Controller
         return redirect()->back();
     }
 
+    /**
+     * See a list of all the song titles
+     * @return \Illuminate\View\View
+     */
     public function listAll()
     {
         $songs = Song::getAllTitles();
 
         return view('song.index', ['songs' => $songs]);
+    }
+
+    /**
+     * Show the song info
+     *
+     * @param $id
+     * @return \Illuminate\View\View
+     */
+    public function info($id)
+    {
+        $song = Song::getInfo($id);
+        return view('song.info', ['song' => $song]);
     }
 }

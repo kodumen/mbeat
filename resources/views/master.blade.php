@@ -9,10 +9,10 @@
 <body>
 <div class="container">
     <div class="header">
-        <h1>mbeat</h1>
+        <h1><a href="{{url('/')}}">mbeat</a></h1>
         <ul class="nav">
-            <li><a href="">songs</a></li>
-            <li><a href="">github</a></li>
+            <li><a href="{{url('/')}}">songs</a></li>
+            <li><a href="{{url('https://github.com/kodumen/mbeat/')}}">github</a></li>
         </ul>
     </div>
     <div class="content">@yield('content')</div>
