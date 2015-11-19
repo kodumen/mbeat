@@ -16,3 +16,9 @@ gameOverState.create = function () {
     text.anchor.x = 0.5;
     text.anchor.y = 0.5;
 };
+
+gameOverState.update = function () {
+    if (game.input.keyboard.isDown(Mbeat.controls.replay)) {
+        this.game.state.start('Play');
+    }
+};

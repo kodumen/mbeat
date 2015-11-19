@@ -15,9 +15,6 @@ playState.preload = function () {
 };
 
 playState.create = function () {
-    // config
-    this.game.antialias = false;
-
     this.add.image(0, 0, 'background')
         .alpha = 0.5;
 
@@ -100,4 +97,5 @@ playState.update = function () {
 
 playState.shutdown = function () {
     this.systems = [];
+    Mbeat.curr_bpm = 60;
 };

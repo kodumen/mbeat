@@ -54,7 +54,8 @@ var Mbeat = {
         button_0: Phaser.KeyCode.D,
         button_1: Phaser.KeyCode.F,
         button_2: Phaser.KeyCode.J,
-        button_3: Phaser.KeyCode.K
+        button_3: Phaser.KeyCode.K,
+        replay: Phaser.KeyCode.SPACEBAR
     },
 
     debug: {}
