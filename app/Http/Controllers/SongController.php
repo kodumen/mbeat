@@ -10,6 +10,13 @@ use App\Song;
 
 class SongController extends Controller
 {
+    /**
+     * Get the song data, with notes.
+     *
+     * @param $id
+     * @param $difficulty
+     * @return \Illuminate\Http\JsonResponse
+     */
     public function getNotes($id, $difficulty)
     {
         return response()->json(Song::get($id, $difficulty));
@@ -30,9 +37,15 @@ class SongController extends Controller
         }
 
         $song = SongFactory::create($sm_contents);
-//        return response()->json($song->notes_hard);
         $song->save();
 
         return redirect()->back();
+    }
+
+    public function listAll()
+    {
+        $songs = Song::getAllTitles();
+
+        return view('song.index', ['songs' => $songs]);
     }
 }

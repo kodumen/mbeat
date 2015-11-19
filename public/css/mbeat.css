@@ -1,0 +1,46 @@
+/*Site css*/
+body {
+    background-color: #ffffdf;
+    font-family: 'Roboto Slab', serif;
+    margin: 0;
+}
+
+a {
+    color: black;
+}
+
+.container {
+    margin: auto;
+    padding: 0 12px;
+    width: 900px;
+}
+
+.header {
+    border-bottom: solid 1px black;
+}
+
+.header > h1 {
+    display: inline-block;
+}
+
+ul.nav {
+    display: inline-block;
+    list-style: none;
+    margin: 0;
+}
+
+ul.nav > li {
+    display: inline-block;
+    margin: 12px;
+}
+
+.content > ul {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+}
+
+.content > ul > li {
+    display: inline-block;
+    margin: 12px;
+}
