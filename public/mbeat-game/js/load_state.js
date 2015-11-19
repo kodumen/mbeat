@@ -58,7 +58,6 @@ loadState.create = function () {
         Mbeat.controls
     );
     keys.x = (this.game.width / 2) - (keys.width / 2);
-
     keys.y = Mbeat.KEY_HEIGHT;
 
     // BPM Manager
@@ -93,8 +92,4 @@ loadState.update = function () {
     while(i--) {
         this.systems[i].postUpdate();
     }
-};
-
-loadState.render = function () {
-
 };
