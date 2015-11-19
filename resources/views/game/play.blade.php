@@ -1,11 +1,12 @@
 @extends('master')
 @section('section')
-    play | {{$song->title_translit ? $song->title_translit : $song->title}}
+    play | {{$song->title_translit ? $song->title_translit : $song->title}} | {{$difficulty}}
 @endsection
 @section('content')
     <div class="game" id="game"></div>
-    <p>If you think the notes does not match with the music, refresh the page
-        and pray that it will become in sync.</p>
+
+    <h2 style="text-align: center">{{$song->title_translit ? $song->title_translit : $song->title}}</h2>
+    <p style="text-align:center"><strong>Instructions: </strong>press 'd', 'f', 'j', 'k' as the notes fall. If not in sync with music press 'r' to restart game.</p>
 <script src="https://ajax.googleapis.com/ajax/libs/webfont/1.5.18/webfont.js"></script>
 <script src="{{asset('/mbeat-game/js/webfont.js')}}"></script>
 <script src="{{asset('/mbeat-game/js/phaser.js')}}"></script>
