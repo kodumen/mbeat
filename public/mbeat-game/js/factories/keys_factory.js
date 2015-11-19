@@ -48,11 +48,33 @@ Mbeat.factory.key = function (state, x, y, img0_key, img1_key, keycode, column) 
         img1_key: img1_key,
         keycode: keycode,
         column: column,
-        canPress: true
+        canPress: true,
+        note_held: null, // type-3 note currently being held
+        hold_timer: 0
     };
 
     key.update = function () {
-        if (game.input.keyboard.isDown(this.data.keycode) && this.data.canPress) {
+        if (!game.input.keyboard.isDown(this.data.keycode)) {
+            this.loadTexture(this.data.img0_key);
+            this.data.canPress = true;
+            this.data.hold_timer = 0;
+        } else if (this.data.note_held) {
+            this.data.canPress = false;
+            this.data.hold_timer += game.time.physicsElapsed;
+            this.data.note_held.height = Mbeat.KEY_HEIGHT - this.data.note_held.y;
+
+            if (this.data.hold_timer >= Mbeat.HOLD_INTERVAL) {
+                Mbeat.player.score += Mbeat.HOLD_PNT;
+                this.data.hold_timer = 0;
+            }
+
+            // Prevent the height becoming negative resulting for the
+            // note to get longer as it moves further from the key
+            if (this.data.note_held.y > Mbeat.KEY_HEIGHT) {
+                this.data.note_held.destroy();
+                this.data.note_held = null;
+            }
+        } else if (this.data.canPress) {
             this.loadTexture(this.data.img1_key);
             this.data.canPress = false;
 
@@ -64,7 +86,7 @@ Mbeat.factory.key = function (state, x, y, img0_key, img1_key, keycode, column) 
                 note = Mbeat.notes.children[i - 1];
                 diff = Mbeat.KEY_HEIGHT - note.y;
 
-                if (note.data.isMiss || diff > Mbeat.BAD * speed) {
+                if (note.data.is_miss || diff > Mbeat.BAD * speed) {
                     continue;
                 }
 
@@ -72,8 +94,13 @@ Mbeat.factory.key = function (state, x, y, img0_key, img1_key, keycode, column) 
                     break;
                 }
             }
+
+            if (!note) {
+                return;
+            }
+
             // judge timing
-            if (note) {
+            if (note.data.type == 1 || note.data.type == 2) {
                 var judgment = '';
                 var points = 0;
 
@@ -103,15 +130,16 @@ Mbeat.factory.key = function (state, x, y, img0_key, img1_key, keycode, column) 
                     points = Mbeat.GOOD_PNT;
                 }
 
+                if (note.data.type == 2 && judgment != Mbeat.STR_BAD) {
+                    this.data.note_held = note.data.tail;
+                }
+
                 if (judgment) {
                     Mbeat.player.setJudgment(judgment);
                     Mbeat.player.score += points;
                     note.destroy();
                 }
             }
-        } else if (!game.input.keyboard.isDown(this.data.keycode)) {
-            this.loadTexture(this.data.img0_key);
-            this.data.canPress = true;
         }
     };
 

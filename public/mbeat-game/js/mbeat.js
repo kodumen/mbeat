@@ -30,6 +30,9 @@ var Mbeat = {
     PERFECT_PNT: 500,
     FLAWLESS_PNT: 1000,
     MISS_PNT: 0,
+    HOLD_PNT: 100,
+
+    HOLD_INTERVAL: 0.2, // Add HOLD_PNT to score every HOLD_INTERVAL seconds
 
     COLOR_RED: '#FA0D4D',
     COLOR_ORANGE: '#FA6929',
