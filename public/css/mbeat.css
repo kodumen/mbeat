@@ -80,3 +80,9 @@ ul.play {
 ul.play * {
     display: inline-block;
 }
+
+.game {
+    margin: auto;
+    padding-top: 12px;
+    width: 512px;
+}

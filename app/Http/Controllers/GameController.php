@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Song;
 use Illuminate\Http\Request;
 use App\Http\Requests;
 use App\Http\Controllers\Controller;
@@ -18,7 +19,8 @@ class GameController extends Controller
      */
     public function play($id, $difficulty)
     {
-        return view('game.play', ['id' => $id, 'difficulty' => $difficulty]);
+        $song = Song::getInfo($id);
+        return view('game.play', ['id' => $id, 'difficulty' => $difficulty, 'song' => $song]);
     }
 
     /**

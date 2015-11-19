@@ -1,11 +1,12 @@
-<!doctype html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>Play</title>
+@extends('master')
+@section('section')
+    play | {{$song->title_translit ? $song->title_translit : $song->title}} | {{$difficulty}}
+@endsection
+@section('content')
+    <div class="game" id="game"></div>
 
-</head>
-<body>
+    <h2 style="text-align: center">{{$song->title_translit ? $song->title_translit : $song->title}}</h2>
+    <p style="text-align:center"><strong>Instructions: </strong>press 'd', 'f', 'j', 'k' as the notes fall. If not in sync with music press 'r' to restart game.</p>
 <script src="https://ajax.googleapis.com/ajax/libs/webfont/1.5.18/webfont.js"></script>
 <script src="{{asset('/mbeat-game/js/webfont.js')}}"></script>
 <script src="{{asset('/mbeat-game/js/phaser.js')}}"></script>
@@ -38,5 +39,4 @@
 
     request.send();
 </script>
-</body>
-</html>
+@endsection

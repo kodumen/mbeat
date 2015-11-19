@@ -65,7 +65,7 @@ playState.create = function () {
     Mbeat.factory.bpmManager(this, Mbeat.song_data.bpms);
 
     // Music
-    Mbeat.factory.music(
+    Mbeat.music_manager = Mbeat.factory.music(
         this,
         'music',
         (Mbeat.KEY_HEIGHT / Mbeat.BEAT_GAP) + Mbeat.song_data.offset
@@ -93,9 +93,16 @@ playState.update = function () {
     while(i--) {
         this.systems[i].postUpdate();
     }
+
+    // QUICK IMPLEMENTATION OF RESTART FUNCTION
+    if (this.game.input.keyboard.isDown(Mbeat.controls.restart)) {
+        this.game.state.restart();
+    }
 };
 
 playState.shutdown = function () {
     this.systems = [];
     Mbeat.curr_bpm = 60;
+    Mbeat.music_manager.music.stop();
+    Mbeat.music_manager = null;
 };
