@@ -8,7 +8,7 @@ Mbeat.factory.bpmManager = function (state, bpm_queue) {
     var system = {};
 
     system.state = state;
-    system.queue = bpm_queue;
+    system.queue = bpm_queue.slice(); // we only use a copy because the original is needed when game is replayed
     system.timer = 0;
 
     // Add that part where beat 0 must first align with the keys first

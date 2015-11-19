@@ -1,8 +1,8 @@
-var loadState = new Phaser.State();
+var playState = new Phaser.State();
 
-loadState.systems = [];
+playState.systems = [];
 
-loadState.preload = function () {
+playState.preload = function () {
     this.load.image('background', '/img?src='+ Mbeat.song_data.background);
     this.load.audio('music', Mbeat.song_data.music);
     this.load.audio('tap', '/mbeat-game/switch26.wav');
@@ -14,10 +14,7 @@ loadState.preload = function () {
     this.load.image('blue_tail', '/mbeat-game/img/blue_tail.png');
 };
 
-loadState.create = function () {
-    // config
-    this.game.antialias = false;
-
+playState.create = function () {
     this.add.image(0, 0, 'background')
         .alpha = 0.5;
 
@@ -86,7 +83,7 @@ loadState.create = function () {
     );
 };
 
-loadState.update = function () {
+playState.update = function () {
     var i = this.systems.length;
     while(i--) {
         this.systems[i].update();
@@ -96,4 +93,9 @@ loadState.update = function () {
     while(i--) {
         this.systems[i].postUpdate();
     }
+};
+
+playState.shutdown = function () {
+    this.systems = [];
+    Mbeat.curr_bpm = 60;
 };

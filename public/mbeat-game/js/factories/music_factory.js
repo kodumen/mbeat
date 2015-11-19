@@ -16,6 +16,19 @@ Mbeat.factory.music = function (state, music_key, delay) {
     system.timer = 0;
     system.hasPlayed = false;
 
+    system.music.onStop.add(
+        function (sound) {
+            sound.game.time.events.add(
+                Phaser.Timer.SECOND * 1,
+                function () {
+                    this.state.start('GameOver');
+                },
+                sound.game
+            )
+        },
+        this
+    );
+
     system.update = function () {
         if (!this.hasPlayed) {
             this.timer += this.state.time.physicsElapsed;

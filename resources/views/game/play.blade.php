@@ -16,7 +16,8 @@
 <script src="{{asset('/mbeat-game/js/factories/bpm_manager_factory.js')}}"></script>
 <script src="{{asset('/mbeat-game/js/factories/player_factory.js')}}"></script>
 <script src="{{asset('/mbeat-game/js/factories/ui_factory.js')}}"></script>
-<script src="{{asset('/mbeat-game/js/load_state.js')}}"></script>
+<script src="{{asset('/mbeat-game/js/play_state.js')}}"></script>
+<script src="{{asset('/mbeat-game/js/game_over_state.js')}}"></script>
 <script src="{{asset('/mbeat-game/js/main.js')}}"></script>
 <script>
     var request = new XMLHttpRequest();
@@ -25,7 +26,7 @@
     request.onload = function () {
         if (request.status >= 200 && request.status < 400) {
             Mbeat.song_data = JSON.parse(request.responseText);
-            game.state.start('Load');
+            game.state.start('Play');
         } else {
             alert('An error occured on the server. Please refresh the page.');
         }
