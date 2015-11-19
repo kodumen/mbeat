@@ -130,8 +130,12 @@ Mbeat.factory.key = function (state, x, y, img0_key, img1_key, keycode, column) 
                     points = Mbeat.GOOD_PNT;
                 }
 
-                if (note.data.type == 2 && judgment != Mbeat.STR_BAD) {
-                    this.data.note_held = note.data.tail;
+                if (note.data.type == 2) {
+                    if (judgment == Mbeat.STR_BAD) {
+                        note.data.tail.alpha = 0.5;
+                    } else {
+                        this.data.note_held = note.data.tail;
+                    }
                 }
 
                 if (judgment) {

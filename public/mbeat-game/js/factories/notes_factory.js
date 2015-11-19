@@ -80,7 +80,7 @@ Mbeat.factory.note = function (state, x, y, key, type, column) {
 
             if (this.data.type == 2) {
                 this.data.tail.is_miss = true;
-                this.alpha = 0.5;
+                this.data.tail.alpha = 0.5;
             }
         }
 
