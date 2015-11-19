@@ -6,7 +6,7 @@
     <div class="game" id="game"></div>
 
     <h2 style="text-align: center">{{$song->title_translit ? $song->title_translit : $song->title}}</h2>
-    <p style="text-align:center"><strong>Instructions: </strong>press 'd', 'f', 'j', 'k' as the notes fall. If not in sync with music press 'r' to restart game.</p>
+    <p style="text-align:center"><strong>Instructions: </strong>press 'd', 'f', 'j', 'k' as the notes fall. If not in sync with the music press 'r' to restart the game.</p>
 <script src="https://ajax.googleapis.com/ajax/libs/webfont/1.5.18/webfont.js"></script>
 <script src="{{asset('/mbeat-game/js/webfont.js')}}"></script>
 <script src="{{asset('/mbeat-game/js/phaser.js')}}"></script>
