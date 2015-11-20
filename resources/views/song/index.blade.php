@@ -7,7 +7,7 @@
     <ul>
         @foreach($songs as $song)
             <li>
-                <a href="{{url('/song/info/' . $song->id)}}">
+                <a href="{{url('/song/info/' . $song->id, [], env('USE_HTTPS')  )}}">
                     {{$song->title_translit ? $song->title_translit : $song->title}}
                 </a>
             </li>
